@@ -1,0 +1,77 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:m="http://www.ol4jsf.org"
+	template="/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form prependId="false">
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton value="#{messages['button.save']}" action="#{clientEditMB.insert}"
+						rendered="#{!clientEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.save']}" action="#{clientEditMB.update}"
+						rendered="#{clientEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.delete']}" onclick="confirmation.show()"
+						rendered="#{clientEditMB.updateMode}" type="button" immediate="true" ajax="false" />
+					<p:confirmDialog message="#{messages['label.confirm.delete']}" showEffect="bounce" hideEffect="explode"
+						header="#{messages['label.dialog.delete']}" severity="alert" widgetVar="confirmation">
+						<h:commandButton value="#{messages['button.dialog.yes']}" action="#{clientEditMB.delete}" immediate="true"
+							ajax="false" />
+						<h:commandButton value="#{messages['button.dialog.no']}" onclick="confirmation.hide()" type="button" />
+					</p:confirmDialog>
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<br />
+
+			<p:fieldset legend="#{messages['client.label']}" toggleable="true" toggleSpeed="500">
+				<h:panelGrid id="fields" columns="3">
+					<h:outputLabel value="#{messages['client.label.id']}: " for="id" styleClass="text-input" />
+					<h:outputText id="id" value="#{clientEditMB.bean.id}" />
+					<p:message for="id" />
+
+					<h:outputLabel value="#{messages['client.label.name']}: " for="name" styleClass="text-input" />
+					<h:inputText id="name" value="#{clientEditMB.bean.name}"
+						title="#{messages['client.alt.name']}" />
+					<p:message for="name" />
+
+					<h:outputLabel value="#{messages['client.label.telefone']}: " for="telefone" styleClass="text-input" />
+					<h:inputText id="telefone" value="#{clientEditMB.bean.telefone}" title="#{messages['client.alt.telefone']}" />
+					<p:message for="telefone" />
+				</h:panelGrid>
+				
+				<h:panelGrid id="panelMap" >
+				<h:outputLabel value="#{messages['client.label.mapa']}: " for="map" styleClass="text-input" />
+				<m:map id="map" width="512px" height="256px"
+				options="{
+					
+					controls: [],
+					numZoomLevels: 10,
+					units: 'm'
+					
+						}">
+	             <m:wmsLayer name="OpenLayers WMS"
+	                         url="http://labs.metacarta.com/wms/vmap0"
+	                         params="{layers:'basic'}" />
+	             <m:wmsLayer name="NASA Global Mosaic"
+	                         url="http://t1.hypercube.telascience.org/cgi-bin/landsat7"
+	                         params="{layers:'landsat7'}"/>
+	             	<m:layerSwitcherControl />
+	              	<m:navigationControl />
+	                <m:panZoomBarControl />
+	                <m:layerSwitcherControl options="{ascending:false}"/>
+	                <m:scaleLineControl />
+	                <m:mousePositionControl />
+	                <m:overviewMapControl />
+	                <m:keyboardDefaultsControl />
+	                <m:permalinkControl />	                
+				<m:inputVectorLayer name="Features" value="#{clientEditMB.bean.point}" jsVariable="point" dropFeaturesBeforeDraw="true"/>	                
+	            <m:drawFeatureControl layer="point" handler="OpenLayers.Handler.Point" jsVariable="iControl"/>
+	            <m:script>iControl.activate();</m:script>
+         		</m:map>
+				<p:message for="map" />
+				</h:panelGrid>
+			</p:fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>

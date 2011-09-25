@@ -1,12 +1,11 @@
 package br.gov.frameworkdemoiselle.spatial.sample.commom.business;
 
 import br.gov.frameworkdemoiselle.annotation.Startup;
+import br.gov.frameworkdemoiselle.spatial.sample.commom.domain.Bookmark;
+import br.gov.frameworkdemoiselle.spatial.sample.commom.persistence.BookmarkDAO;
 import br.gov.frameworkdemoiselle.stereotype.BusinessController;
 import br.gov.frameworkdemoiselle.template.DelegateCrud;
 import br.gov.frameworkdemoiselle.transaction.Transactional;
-
-import br.gov.frameworkdemoiselle.spatial.sample.commom.domain.Bookmark;
-import br.gov.frameworkdemoiselle.spatial.sample.commom.persistence.BookmarkDAO;
 
 @BusinessController
 public class BookmarkBC extends DelegateCrud<Bookmark, Long, BookmarkDAO> {

@@ -1,0 +1,80 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:m="http://www.ol4jsf.org"
+	template="/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form>
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton title="#{messages['button.new']}" image="ui-icon-document" action="#{clientListMB.getNextView}"
+						actionListener="#{clientListMB.clear}" ajax="false" />
+
+					<p:commandButton title="#{messages['button.delete']}" image="ui-icon-trash" onclick="confirmation.show()"
+						type="button" immediate="true" ajax="false" />
+
+					<p:confirmDialog message="#{messages['label.confirm.delete']}" showEffect="bounce" hideEffect="explode"
+						header="#{messages['label.dialog.alert']}!" severity="alert" widgetVar="confirmation">
+
+						<h:commandButton value="#{messages['button.dialog.yes']}" action="#{clientListMB.deleteSelection}"
+							actionListener="#{clientListMB.clear}" />
+						<h:commandButton value="#{messages['button.dialog.no']}" onclick="confirmation.hide()" type="button" />
+					</p:confirmDialog>
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<p:dataTable id="list" var="bean" value="#{clientListMB.resultList}">
+				<f:facet name="header">#{messages['client.list.table.title']}</f:facet>
+				<p:column style="width:5%;">
+					<h:selectBooleanCheckbox value="#{clientListMB.selection[bean.id]}"></h:selectBooleanCheckbox>
+				</p:column>
+				<p:column style="width:5%;" sortBy="#{bean.id}">
+					<f:facet name="header">#{messages['client.label.id']}</f:facet>
+					<h:outputText value="#{bean.id}" />
+				</p:column>
+				<p:column sortBy="#{bean.name}">
+					<f:facet name="header">#{messages['client.label.name']}</f:facet>
+					<h:commandLink action="#{clientListMB.getNextView}" actionListener="#{clientListMB.clear}">
+						<h:outputText value="#{bean.name}" />
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
+				</p:column>
+				<p:column sortBy="#{bean.telefone}">
+					<f:facet name="header">#{messages['client.label.telefone']}</f:facet>
+					<h:commandLink action="#{bookmarkListMB.getNextView}" actionListener="#{bookmarkListMB.clear}">
+						<h:outputText value="#{bean.telefone}" />
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
+				</p:column>
+			</p:dataTable>
+			<h:panelGroup>
+			<m:map id="map" width="512px" height="256px"
+				options="{
+					
+					controls: [],
+					numZoomLevels: 10,
+					units: 'm'
+					
+						}">
+	             <m:wmsLayer name="OpenLayers WMS"
+	                         url="http://labs.metacarta.com/wms/vmap0"
+	                         params="{layers:'basic'}" />
+	             <m:wmsLayer name="NASA Global Mosaic"
+	                         url="http://t1.hypercube.telascience.org/cgi-bin/landsat7"
+	                         params="{layers:'landsat7'}"/>
+	             	<m:layerSwitcherControl />
+	              	<m:navigationControl />
+	                <m:panZoomBarControl />
+	                <m:layerSwitcherControl options="{ascending:false}"/>
+	                <m:scaleLineControl />
+	                <m:mousePositionControl />
+	                <m:overviewMapControl />
+	                <m:keyboardDefaultsControl />
+	                <m:permalinkControl />	                
+				<m:vectorLayer name="Features" value="#{clientListMB.resultFeatureList}"/>	                
+         		</m:map>
+			
+			</h:panelGroup>
+		</h:form>
+	</ui:define>
+</ui:composition>

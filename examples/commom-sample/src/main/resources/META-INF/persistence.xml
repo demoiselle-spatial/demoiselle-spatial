@@ -8,12 +8,16 @@
 		<non-jta-data-source>java:/DefaultDS</non-jta-data-source>
 		
 		<class>br.gov.frameworkdemoiselle.spatial.sample.commom.domain.Bookmark</class>
+		<class>br.gov.frameworkdemoiselle.spatial.sample.commom.domain.Client</class>
+		<class>br.gov.frameworkdemoiselle.spatial.sample.commom.domain.Address</class>
 
 		<properties>
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="false" />
-			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.hbm2ddl.auto" value="create-drop" />
 			<property name="hibernate.transaction.manager_lookup_class" value="org.hibernate.transaction.JBossTransactionManagerLookup" />
+			
+			<property name="hibernate.dialect" value="org.hibernatespatial.postgis.PostgisDialect" />
 		</properties>
 	</persistence-unit>
 	

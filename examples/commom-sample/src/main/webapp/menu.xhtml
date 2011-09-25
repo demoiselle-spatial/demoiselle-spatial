@@ -5,9 +5,14 @@
 	<h:form>
 		<p:menubar>
 			<p:submenu label="#{messages['menu.bookmark']}">
-				<p:menuitem value="#{messages['menu.menuitem.new']}" url="/bookmark_edit.jsf" />
-				<p:menuitem value="#{messages['menu.menuitem.list']}" url="/bookmark_list.jsf" />
+				<p:menuitem value="#{messages['menu.menuitem.new']}" url="/client_edit.jsf" />
+				<p:menuitem value="#{messages['menu.menuitem.list']}" url="/client_list.jsf" />
 			</p:submenu>
+
+			<p:submenu label="#{messages['menu.spatial']}">
+				<p:menuitem value="#{messages['menu.spatial.first_map']}" url="/spatial/first_map.jsf" />
+			</p:submenu>
+
 
 			<p:menuitem value="#{messages['menu.menuitem.quit']}" url="http://www.frameworkdemoiselle.gov.br/"
 				action="#{securityContext.logout}" />

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ol4jsf-proxy>
+	<use-environment id="desenv" />
+	<environment id="desenv">
+		<description>Development Environment.</description>
+		<resources>
+			<resource name="wfs">
+				<url>http://localhost:8082/geoserver/wfs</url>
+			</resource>
+			<resource name="wms">
+				<url>http://localhost:8082/geoserver/wms</url>
+			</resource>
+		</resources>
+	</environment>
+</ol4jsf-proxy>
