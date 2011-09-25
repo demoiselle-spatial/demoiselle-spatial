@@ -48,6 +48,9 @@
 				</p:column>
 			</p:dataTable>
 			<h:panelGroup>
+			<div id="toolbar">
+			<div id="toolbar_group"></div>
+			</div>
 			<m:map id="map" width="512px" height="256px"
 				options="{
 					
@@ -56,12 +59,18 @@
 					units: 'm'
 					
 						}">
+						
 	             <m:wmsLayer name="OpenLayers WMS"
 	                         url="http://labs.metacarta.com/wms/vmap0"
 	                         params="{layers:'basic'}" />
-	             <m:wmsLayer name="NASA Global Mosaic"
-	                         url="http://t1.hypercube.telascience.org/cgi-bin/landsat7"
-	                         params="{layers:'landsat7'}"/>
+	             <m:wmsLayer name="DM Solutions Demo"
+                                url="http://www2.dmsolutions.ca/cgi-bin/mswms_gmap"
+                                params="{layers: 'bathymetry,land_fn,park,drain_fn,drainage,prov_bound,fedlimit,rail,road,popplace',
+                                transparent: 'true', format: 'image/png'}"
+                                options="{
+                                minResolution: 0.17578125,
+                                maxResolution: 0.703125
+                                }"/>
 	             	<m:layerSwitcherControl />
 	              	<m:navigationControl />
 	                <m:panZoomBarControl />
@@ -71,7 +80,16 @@
 	                <m:overviewMapControl />
 	                <m:keyboardDefaultsControl />
 	                <m:permalinkControl />	                
-				<m:vectorLayer name="Features" value="#{clientListMB.resultFeatureList}"/>	                
+					<m:vectorLayer name="Features" value="#{clientListMB.resultFeatureList}" jsVariable="features"/>
+					
+					  
+					<m:panelControl options="{div:document.getElementById('toolbar_group')}" jsVariable="toolbar">
+						<m:zoomToMaxExtentControl options="{title:'Reset Zoom Map'}"/>
+					</m:panelControl>
+					<m:script>toolbar.addControls(new OpenLayers.Control.MouseDefaults({title:'Pan'}));</m:script>
+					<m:script>toolbar.addControls(new OpenLayers.Control.ZoomBox({alwaysZoom:true, title:'Zoom box'}));</m:script>
+					<m:script>toolbar.addControls(new OpenLayers.Control.ZoomIn({title:'Zoom in'}));</m:script>   
+					<m:script>toolbar.addControls(new OpenLayers.Control.ZoomOut({title:'Zoom out'}));</m:script>
          		</m:map>
 			
 			</h:panelGroup>

@@ -1,0 +1,27 @@
+#toolbar {
+	height: 26px;
+	background: -moz-linear-gradient(top, #f0f0f0, #cecece);
+	background: -webkit-linear-gradient(top, #f0f0f0, #cecece);
+	background: -o-linear-gradient(top, #f0f0f0, #cecece);
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#f0f0f0', endColorstr='#cecece')";
+	border-bottom: 1px solid #a8a8a8;
+}
+
+#toolbar_group  {
+	padding-left: 5px;
+}
+#toolbar_group div {
+	display: block;
+	width:  24px;
+	height: 22px;
+	margin: 2px 7px 0 0;
+	float: left;
+}
+#toolbar_group .olControlZoomBoxItemInactive { background-image: url("#{resource['images:zoomfit_off.png']}"); }
+#toolbar_group .olControlZoomBoxItemActive { background-image: url("#{resource['images:zoomfit_on.png']}"); }
+#toolbar_group .olControlZoomInItemInactive { background-image: url("#{resource['images:zoomin.png']}"); }
+#toolbar_group .olControlZoomOutItemInactive { background-image: url("#{resource['images:zoomout.png']}"); }
+#toolbar_group .olControlMouseDefaultsItemInactive { background-image: url("#{resource['images:pan_off.png']}"); }
+#toolbar_group .olControlMouseDefaultsItemActive { background-image: url("#{resource['images:pan_on.png']}"); }
+#toolbar_group .olControlZoomToMaxExtentItemInactive { background-image: url("#{resource['images:icon_full_map.gif']}"); }
+#toolbar_group .olControlZoomToMaxExtentItemActive { background-image: url("#{resource['images:icon_full_map.gif']}"); }
