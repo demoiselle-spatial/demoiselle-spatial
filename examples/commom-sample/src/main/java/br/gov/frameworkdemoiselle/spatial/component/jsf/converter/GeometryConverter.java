@@ -4,18 +4,21 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.inject.Inject;
+
+import org.slf4j.Logger;
 
 import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.io.ParseException;
 import com.vividsolutions.jts.io.WKTReader;
 
-/**
-*
-* @author ranophoenix
-*/
+
 @FacesConverter(forClass = Geometry.class)
 public class GeometryConverter implements Converter {
 
+	@Inject
+    Logger logger;
+	
    @Override
    public Object getAsObject(FacesContext context, UIComponent component, String value) {
        Geometry geom = null;
@@ -25,7 +28,7 @@ public class GeometryConverter implements Converter {
                geom = reader.read(value);
                geom.setSRID(4326);
            } catch (ParseException ex) {
-               //TODO INCLUIR LOGGER
+               logger.error("ParserErro on JSF Converter", ex);
            }
 
        }

@@ -35,6 +35,10 @@
 			<artifactId>primefaces</artifactId>
 			<scope>compile</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			</dependency>
 		<!-- OL4JSF -->
 		<dependency>
             <groupId>org.ol4jsf</groupId>

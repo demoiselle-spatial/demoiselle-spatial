@@ -39,19 +39,22 @@
 						<f:param name="id" value="#{bean.id}" />
 					</h:commandLink>
 				</p:column>
-				<p:column sortBy="#{bean.telefone}">
+				<p:column sortBy="#{bean.telephone}">
 					<f:facet name="header">#{messages['client.label.telefone']}</f:facet>
 					<h:commandLink action="#{bookmarkListMB.getNextView}" actionListener="#{bookmarkListMB.clear}">
-						<h:outputText value="#{bean.telefone}" />
-						<f:param name="id" value="#{bean.id}" />
+						<h:outputText value="#{bean.telephone}" />
+						<f:param name="id" value="#{bean.id}"/>
 					</h:commandLink>
+				</p:column>
+					<p:column style="width:5%;">
+					<p:commandButton value="Map" onclick="map.setCenter(new OpenLayers.LonLat(#{bean.point.centroid.x}, #{bean.point.centroid.y}), map.getZoom());" type="button"/>
 				</p:column>
 			</p:dataTable>
 			<h:panelGroup>
 			<div id="toolbar">
 			<div id="toolbar_group"></div>
 			</div>
-			<m:map id="map" width="512px" height="256px"
+			<m:map id="map" width="512px" height="256px" jsVariable="map" 
 				options="{
 					
 					controls: [],
@@ -61,16 +64,11 @@
 						}">
 						
 	             <m:wmsLayer name="OpenLayers WMS"
-	                         url="http://labs.metacarta.com/wms/vmap0"
+	                         url="http://vmap0.tiles.osgeo.org/wms/vmap0"
 	                         params="{layers:'basic'}" />
-	             <m:wmsLayer name="DM Solutions Demo"
-                                url="http://www2.dmsolutions.ca/cgi-bin/mswms_gmap"
-                                params="{layers: 'bathymetry,land_fn,park,drain_fn,drainage,prov_bound,fedlimit,rail,road,popplace',
-                                transparent: 'true', format: 'image/png'}"
-                                options="{
-                                minResolution: 0.17578125,
-                                maxResolution: 0.703125
-                                }"/>
+				<m:wmsLayer name="Labels"
+	                         url="http://vmap0.tiles.osgeo.org/wms/vmap0"
+	                         params="{layers: 'clabel,ctylabel,statelabel',transparent:true}" />
 	             	<m:layerSwitcherControl />
 	              	<m:navigationControl />
 	                <m:panZoomBarControl />
@@ -90,8 +88,14 @@
 					<m:script>toolbar.addControls(new OpenLayers.Control.ZoomBox({alwaysZoom:true, title:'Zoom box'}));</m:script>
 					<m:script>toolbar.addControls(new OpenLayers.Control.ZoomIn({title:'Zoom in'}));</m:script>   
 					<m:script>toolbar.addControls(new OpenLayers.Control.ZoomOut({title:'Zoom out'}));</m:script>
+					<m:script>map.zoomToExtent(features.getDataExtent());</m:script>
          		</m:map>
-			
+         		<script type="text/javascript">
+         		
+         		//for (var i in map_ol.layers[2].features){ alert(map_ol.layers[2].features[i]);}
+         			//alert(map_ol.layers);	
+         		</script>
+         		
 			</h:panelGroup>
 		</h:form>
 	</ui:define>
