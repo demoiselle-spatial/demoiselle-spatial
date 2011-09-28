@@ -20,6 +20,7 @@ public class ClientBC extends DelegateCrud<Client, Long, ClientDAO> {
 	@Inject
     private MessageContext messageContext;
 	
+
 	
 
 
@@ -33,6 +34,9 @@ public class ClientBC extends DelegateCrud<Client, Long, ClientDAO> {
 
 	@Override
 	public void insert(Client bean) {
+		
+
+		
 		super.insert(bean);
 		
 		 messageContext.add(InfoMessages.CLIENT_INSERT_OK, bean.getName());

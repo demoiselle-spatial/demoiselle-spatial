@@ -15,8 +15,9 @@ import com.google.code.geocoder.model.LatLngBounds;
 import com.vividsolutions.jts.geom.Envelope;
 import com.vividsolutions.jts.geom.Point;
 
-public class GeocodingReverseGeocodingImpl implements Geocoding, ReverseGeocoding{
 
+public class GeocodingReverseGeocodingImpl implements Geocoding, ReverseGeocoding{
+	
 	private final Geocoder geocoder = new Geocoder();
 	
 	private GeocoderRequestBuilder requestBuilder;
