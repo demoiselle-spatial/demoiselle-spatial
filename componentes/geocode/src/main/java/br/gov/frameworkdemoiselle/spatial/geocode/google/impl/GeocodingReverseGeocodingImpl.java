@@ -137,7 +137,7 @@ public class GeocodingReverseGeocodingImpl implements Geocoding, ReverseGeocodin
 	@Override
 	public Geocoding setLocation(Point point) {
 		
-		this.location = new LatLng(BigDecimal.valueOf(point.getX()), BigDecimal.valueOf(point.getY()));
+		this.location = new LatLng(BigDecimal.valueOf(point.getY()), BigDecimal.valueOf(point.getX()));
 		
 		return this;
 	}

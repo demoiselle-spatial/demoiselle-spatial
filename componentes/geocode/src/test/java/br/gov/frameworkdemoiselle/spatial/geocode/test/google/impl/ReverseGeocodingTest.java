@@ -8,6 +8,7 @@ import br.gov.frameworkdemoiselle.spatial.geocode.ReverseGeocoding;
 import br.gov.frameworkdemoiselle.spatial.geocode.google.impl.GeocodingReverseGeocodingImpl;
 import br.gov.frameworkdemoiselle.spatial.geocode.model.GeocodingResponse;
 import br.gov.frameworkdemoiselle.spatial.geocode.model.Language;
+import br.gov.frameworkdemoiselle.spatial.geocode.util.JTSUtil;
 
 public class ReverseGeocodingTest {
 
@@ -17,6 +18,17 @@ public class ReverseGeocodingTest {
 		ReverseGeocoding impl = new GeocodingReverseGeocodingImpl();
 		 
 		GeocodingResponse response = impl.setLocation("-12.9710208","-38.48760780000001").search(true);
+		
+		assertTrue(response.getResults().get(0).getAddress().equals("R. Santa Maria Goretti, 1-237 - Vila Laura, Salvador - Bahia, 40270-210, Brazil"));		
+		
+	}
+	
+	@Test
+	public void searchLocationJTS() {
+		
+		ReverseGeocoding impl = new GeocodingReverseGeocodingImpl();
+		 
+		GeocodingResponse response = impl.setLocation(new JTSUtil().createJTSPoint("-12.9710208", "-38.48760780000001")).search(true);
 		
 		assertTrue(response.getResults().get(0).getAddress().equals("R. Santa Maria Goretti, 1-237 - Vila Laura, Salvador - Bahia, 40270-210, Brazil"));		
 		

@@ -23,7 +23,7 @@ public class JTSUtil {
 	public Point createJTSPoint(String lat, String lng)
 	{
 		
-		return this.createJTSPoint(Double.valueOf(lng), Double.valueOf(lat));
+		return this.createJTSPoint(Double.valueOf(lat), Double.valueOf(lng));
 		
 		
 	}
