@@ -10,6 +10,7 @@ import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.params.HttpMethodParams;
 
+import br.gov.frameworkdemoiselle.spatial.geocode.exception.GeocodeException;
 import br.gov.frameworkdemoiselle.spatial.geocode.nominatim.model.NominatimRequest;
 import br.gov.frameworkdemoiselle.spatial.geocode.nominatim.model.NominatimResponse;
 import flexjson.JSONDeserializer;
@@ -78,11 +79,11 @@ public class Nominatim {
 
 	    } catch (HttpException e) {
 	      
-	      	//TODO Handling exception please!      
+	      	throw new GeocodeException("Exception on request a geocoding external service", e);      
 	      
 	    } catch (IOException e) {
 	      
-	      	//TODO Handling exception please!	      
+	    	throw new GeocodeException("Exception on request a geocoding external service", e);	      
 	      
 	    } finally {
 	  

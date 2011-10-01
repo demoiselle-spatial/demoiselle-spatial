@@ -5,17 +5,17 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import br.gov.frameworkdemoiselle.spatial.geocode.ReverseGeocoding;
-import br.gov.frameworkdemoiselle.spatial.geocode.google.impl.GeocodingReverseGeocodingImpl;
+import br.gov.frameworkdemoiselle.spatial.geocode.google.impl.ReverseGeocodingGoogleMapsImpl;
 import br.gov.frameworkdemoiselle.spatial.geocode.model.GeocodingResponse;
 import br.gov.frameworkdemoiselle.spatial.geocode.model.Language;
 import br.gov.frameworkdemoiselle.spatial.geocode.util.JTSUtil;
 
-public class ReverseGeocodingTest {
+public class ReverseGeocodingGoogleMapsTest {
 
 	@Test
 	public void searchLocation() {
 		
-		ReverseGeocoding impl = new GeocodingReverseGeocodingImpl();
+		ReverseGeocoding impl = new ReverseGeocodingGoogleMapsImpl();
 		 
 		GeocodingResponse response = impl.setLocation("-12.9710208","-38.48760780000001").search(true);
 		
@@ -26,7 +26,7 @@ public class ReverseGeocodingTest {
 	@Test
 	public void searchLocationJTS() {
 		
-		ReverseGeocoding impl = new GeocodingReverseGeocodingImpl();
+		ReverseGeocoding impl = new ReverseGeocodingGoogleMapsImpl();
 		 
 		GeocodingResponse response = impl.setLocation(new JTSUtil().createJTSPoint("-12.9710208", "-38.48760780000001")).search(true);
 		
@@ -37,7 +37,7 @@ public class ReverseGeocodingTest {
 	@Test
 	public void searchLocationAndLanguage() {
 		
-		ReverseGeocoding impl = new GeocodingReverseGeocodingImpl();
+		ReverseGeocoding impl = new ReverseGeocodingGoogleMapsImpl();
 		 
 		GeocodingResponse response = impl.setLocation("-12.9710208","-38.48760780000001").setLanguage(Language.Portuguese_Brazil).search(true);
 		

@@ -1,9 +1,6 @@
 package br.gov.frameworkdemoiselle.spatial.geocode.google.impl;
 
-import java.math.BigDecimal;
-
 import br.gov.frameworkdemoiselle.spatial.geocode.Geocoding;
-import br.gov.frameworkdemoiselle.spatial.geocode.ReverseGeocoding;
 import br.gov.frameworkdemoiselle.spatial.geocode.model.GeocodingResponse;
 import br.gov.frameworkdemoiselle.spatial.geocode.model.GeocodingServiceReturnStatus;
 import br.gov.frameworkdemoiselle.spatial.geocode.model.Language;
@@ -13,10 +10,9 @@ import com.google.code.geocoder.GeocoderRequestBuilder;
 import com.google.code.geocoder.model.LatLng;
 import com.google.code.geocoder.model.LatLngBounds;
 import com.vividsolutions.jts.geom.Envelope;
-import com.vividsolutions.jts.geom.Point;
 
 
-public class GeocodingReverseGeocodingImpl implements Geocoding, ReverseGeocoding{
+public class GeocodingGoogleMapsImpl implements Geocoding{
 	
 	private final Geocoder geocoder = new Geocoder();
 	
@@ -28,9 +24,8 @@ public class GeocodingReverseGeocodingImpl implements Geocoding, ReverseGeocodin
 	
 	private String postalcode;
 	
-	private LatLng location;
 	
-	public GeocodingReverseGeocodingImpl()
+	public GeocodingGoogleMapsImpl()
 	{
 		this.clearSearch();
 	}
@@ -51,10 +46,6 @@ public class GeocodingReverseGeocodingImpl implements Geocoding, ReverseGeocodin
 		{
 			return new GeocoderJavaParserHelper().transform(this.geocoder.geocode(this.requestBuilder.setAddress(this.createAddressString()).getGeocoderRequest()));
 		}
-		else if(this.location != null)
-		{
-			return new GeocoderJavaParserHelper().transform(this.geocoder.geocode(this.requestBuilder.setLocation(location).getGeocoderRequest()));
-		}
 
 		GeocodingResponse response = new GeocodingResponse();
 		response.setReturnStatus(GeocodingServiceReturnStatus.CONFIG_ERROR);
@@ -67,6 +58,7 @@ public class GeocodingReverseGeocodingImpl implements Geocoding, ReverseGeocodin
 		
 		GeocodingResponse response = this.search();
 		
+		if(clear)
 		this.clearSearch();
 		
 		return response;
@@ -126,21 +118,7 @@ public class GeocodingReverseGeocodingImpl implements Geocoding, ReverseGeocodin
 		return this;
 	}
 	
-	@Override
-	public Geocoding setLocation(String lat, String lng) {
-		
-		this.location = new LatLng(lat, lng);
-		
-		return this;
-	}
 
-	@Override
-	public Geocoding setLocation(Point point) {
-		
-		this.location = new LatLng(BigDecimal.valueOf(point.getY()), BigDecimal.valueOf(point.getX()));
-		
-		return this;
-	}
 	
 
 	@Override

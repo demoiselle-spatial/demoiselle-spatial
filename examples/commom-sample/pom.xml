@@ -55,6 +55,14 @@
 		</dependency>
 
 
+
+<!-- 		<dependency> -->
+<!-- 			<groupId> -->
+<!-- 				br.gov.frameworkdemoiselle.spatial.component -->
+<!-- 			</groupId> -->
+<!-- 			<artifactId>geocode</artifactId> -->
+<!-- 			<version>1.0.0-SNAPSHOT</version> -->
+<!-- 		</dependency> -->
 	</dependencies>
 
 	<repositories>

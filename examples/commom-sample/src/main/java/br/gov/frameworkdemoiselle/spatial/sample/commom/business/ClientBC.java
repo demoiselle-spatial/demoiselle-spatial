@@ -20,8 +20,8 @@ public class ClientBC extends DelegateCrud<Client, Long, ClientDAO> {
 	@Inject
     private MessageContext messageContext;
 	
-
-	
+//	@Inject
+//	private ReverseGeocoding reverseGeocoding;
 
 
 	@Override
@@ -35,7 +35,7 @@ public class ClientBC extends DelegateCrud<Client, Long, ClientDAO> {
 	@Override
 	public void insert(Client bean) {
 		
-
+//		GeocodingResponse response = reverseGeocoding.setLocation((Point)bean.getPoint()).search();
 		
 		super.insert(bean);
 		
