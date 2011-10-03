@@ -8,13 +8,16 @@ import org.opengis.feature.simple.SimpleFeature;
 
 import br.gov.frameworkdemoiselle.spatial.component.kml.exception.KMLBuilderException;
 
-import com.vividsolutions.jts.geom.LineString;
+import com.vividsolutions.jts.geom.MultiLineString;
+import com.vividsolutions.jts.geom.MultiPoint;
+import com.vividsolutions.jts.geom.MultiPolygon;
 
 import de.micromata.opengis.kml.v_2_2_0.AltitudeMode;
 import de.micromata.opengis.kml.v_2_2_0.Boundary;
 import de.micromata.opengis.kml.v_2_2_0.Coordinate;
 import de.micromata.opengis.kml.v_2_2_0.ExtendedData;
 import de.micromata.opengis.kml.v_2_2_0.KmlFactory;
+import de.micromata.opengis.kml.v_2_2_0.LineString;
 import de.micromata.opengis.kml.v_2_2_0.LinearRing;
 import de.micromata.opengis.kml.v_2_2_0.Placemark;
 import de.micromata.opengis.kml.v_2_2_0.Point;
@@ -47,7 +50,7 @@ public class SimpleFeatureKMLConverter {
 			Point point = KmlFactory.createPoint();
 			point.setExtrude(false);
 			point.setAltitudeMode(AltitudeMode.CLAMP_TO_GROUND);			
-			point.getCoordinates().add(this.extractCoordinateFromFeature(feature));
+			point.getCoordinates().add(this.extractCoordinateFromFeaturePoint(feature));
 			
 			placemark.setGeometry(point);
 			
@@ -65,7 +68,22 @@ public class SimpleFeatureKMLConverter {
 			
 			placemark.setGeometry(polygon);
 		}
-		
+		else if(com.vividsolutions.jts.geom.LineString.class.equals(geometry))
+		{
+			LineString lineString = KmlFactory.createLineString();
+			lineString.setExtrude(false);
+			lineString.setAltitudeMode(AltitudeMode.CLAMP_TO_GROUND);
+			lineString.getCoordinates().addAll(this.extractCoordinatesFromFeatureLineString(feature));
+			
+			placemark.setGeometry(lineString);
+		}
+		else if(MultiPolygon.class.equals(geometry) || MultiPoint.class.equals(geometry) || MultiLineString.class.equals(geometry))
+		{
+			
+//			MultiGeometry multi = KmlFactory.createMultiGeometry();
+//			multi.setGeometry(this.ex)
+
+		}
 		
 		if(feature.getAttributes()!= null && !feature.getAttributes().isEmpty())
 		{
@@ -98,11 +116,19 @@ public class SimpleFeatureKMLConverter {
 	}
 	
 
-		private Coordinate extractCoordinateFromFeature(SimpleFeature feature)
+		private Coordinate extractCoordinateFromFeaturePoint(SimpleFeature feature)
 		{
 			com.vividsolutions.jts.geom.Point point = (com.vividsolutions.jts.geom.Point) feature.getDefaultGeometry();
 			
 			return new Coordinate(point.getX(), point.getY());
+			
+		}
+		
+		private List<Coordinate> extractCoordinatesFromFeatureLineString(SimpleFeature feature)
+		{
+			com.vividsolutions.jts.geom.LineString lineString = (com.vividsolutions.jts.geom.LineString) feature.getDefaultGeometry();
+			
+			return convertJTSCoordinatesToKMLCoordinates(lineString.getCoordinates());
 			
 		}
 		
@@ -121,7 +147,7 @@ public class SimpleFeatureKMLConverter {
 		{
 			List<Boundary> listInnerBoundary = new ArrayList<Boundary>();
 			Boundary innerBoundary = null;
-			LineString lineStringJTS = null;
+			com.vividsolutions.jts.geom.LineString lineStringJTS = null;
 			com.vividsolutions.jts.geom.Polygon polygon = (com.vividsolutions.jts.geom.Polygon) feature.getDefaultGeometry();
 			
 			for (int i = 0; i < polygon.getNumInteriorRing(); i++) {
@@ -136,21 +162,27 @@ public class SimpleFeatureKMLConverter {
 			return listInnerBoundary;		
 		}
 		
-		private LinearRing convertJTSLineStringToKMLLinearRing(LineString lineStringJTS)
+		private LinearRing convertJTSLineStringToKMLLinearRing(com.vividsolutions.jts.geom.LineString lineStringJTS)
 		{	
 			LinearRing linearRing = new LinearRing();
-			List<Coordinate> coordinates = new ArrayList<Coordinate>();
-			Coordinate coordinate = null;
 			
-			for (com.vividsolutions.jts.geom.Coordinate coordinateJTS : lineStringJTS.getCoordinates()) {
+			linearRing.setCoordinates(convertJTSCoordinatesToKMLCoordinates(lineStringJTS.getCoordinates()));
+			
+			return linearRing;
+		}
+		
+		private List<Coordinate> convertJTSCoordinatesToKMLCoordinates(com.vividsolutions.jts.geom.Coordinate[] coordinatesJTS)
+		{
+			Coordinate coordinate = null;
+			List<Coordinate> coordinates = new ArrayList<Coordinate>();
+			
+			for (com.vividsolutions.jts.geom.Coordinate coordinateJTS : coordinatesJTS) {
 				
 				coordinate = new Coordinate(coordinateJTS.x, coordinateJTS.y);		
 				coordinates.add(coordinate);
 			}
 			
-			linearRing.setCoordinates(coordinates);
-			
-			return linearRing;
+			return coordinates;
 		}
 
 }

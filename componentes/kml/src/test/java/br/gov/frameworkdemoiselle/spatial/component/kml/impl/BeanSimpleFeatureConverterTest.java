@@ -1,6 +1,5 @@
 package br.gov.frameworkdemoiselle.spatial.component.kml.impl;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.opengis.feature.simple.SimpleFeature;
