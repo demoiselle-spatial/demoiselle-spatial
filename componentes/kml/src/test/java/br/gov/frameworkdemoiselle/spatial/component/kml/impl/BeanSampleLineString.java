@@ -1,9 +1,12 @@
 package br.gov.frameworkdemoiselle.spatial.component.kml.impl;
 
+import br.gov.frameworkdemoiselle.spatial.component.feature.annotation.FeatureName;
+
 import com.vividsolutions.jts.geom.LineString;
 
-public class BeanSampleLineString extends AnotherBean{
+public class BeanSampleLineString extends ParentBean{
 
+	@FeatureName
 	private String name;
 	
 	private Integer classification;
@@ -12,18 +15,22 @@ public class BeanSampleLineString extends AnotherBean{
 	
 	private LineString line;
 	
-	private AnotherBean anotherBean;
+	private ParentBean anotherBean;
 
 	
 	
 	public BeanSampleLineString(String name, Integer classification, Double height,
-			LineString line,AnotherBean anotherBean) {
+			LineString line,ParentBean anotherBean) {
 		super(1l);
 		this.name = name;
 		this.classification = classification;
 		this.height = height;
 		this.line = line;
 		this.anotherBean = anotherBean;
+	}
+	
+	public BeanSampleLineString() {
+		super(1l);
 	}
 
 	public String getName() {
@@ -58,11 +65,11 @@ public class BeanSampleLineString extends AnotherBean{
 		this.line = line;
 	}
 
-	public AnotherBean getAnotherBean() {
+	public ParentBean getAnotherBean() {
 		return anotherBean;
 	}
 
-	public void setAnotherBean(AnotherBean anotherBean) {
+	public void setAnotherBean(ParentBean anotherBean) {
 		this.anotherBean = anotherBean;
 	}
 	
