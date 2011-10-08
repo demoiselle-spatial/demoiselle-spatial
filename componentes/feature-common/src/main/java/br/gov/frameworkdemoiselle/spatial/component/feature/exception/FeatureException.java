@@ -1,4 +1,4 @@
-package br.gov.frameworkdemoiselle.spatial.component.kml.impl;
+package br.gov.frameworkdemoiselle.spatial.component.feature.exception;
 
 public class FeatureException extends RuntimeException {
 

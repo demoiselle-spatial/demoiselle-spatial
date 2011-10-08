@@ -1,4 +1,4 @@
-package br.gov.frameworkdemoiselle.spatial.component.kml.impl;
+package br.gov.frameworkdemoiselle.spatial.component.feature.util;
 
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.GeometryFactory;
