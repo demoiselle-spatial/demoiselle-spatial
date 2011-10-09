@@ -25,7 +25,8 @@ import com.vividsolutions.jts.io.WKTReader;
 public class KMLBuilderImplTest {
 
 	//static final String KMLFilePath = "/sample/folder";
-	static final String KMLFilePath = null;
+	static final String KMLFilePath = "/Users/otos/development/projeto/demoiselle-spatial/tmp/";
+	//static final String KMLFilePath = null;
 	
 	File file = null;
 	

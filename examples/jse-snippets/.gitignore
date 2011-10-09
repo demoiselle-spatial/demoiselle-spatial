@@ -1,0 +1,8 @@
+.settings
+.project
+.classpath
+/target
+/.externalToolBuilders
+componentes/kml/src/test/java/br/gov/frameworkdemoiselle/spatial/component/kml/impl/BeanSimpleFeatureConverterTest.java
+
+componentes/kml/src/test/java/br/gov/frameworkdemoiselle/spatial/component/kml/impl/BeanSimpleFeatureConverterTest.java

@@ -102,6 +102,8 @@ public class SimpleFeatureKMLConverter {
 			throw new KMLBuilderException("Error on convert SimpleFeature to Placemark",e);
 		}	
 		
+		this.setDefaultStyle(placemark);
+		
 		return placemark;
 	}
 	
@@ -291,6 +293,11 @@ public class SimpleFeatureKMLConverter {
 			sb.append("</table>");
 
 			return sb.toString();
+		}
+		
+		private void setDefaultStyle(Placemark placemark)
+		{
+			placemark.setStyleUrl("#demoiselle");
 		}
 
 }

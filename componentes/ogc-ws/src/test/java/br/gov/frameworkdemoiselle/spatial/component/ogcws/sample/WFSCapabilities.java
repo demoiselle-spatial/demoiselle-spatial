@@ -9,7 +9,6 @@ import org.geotools.data.DataStore;
 import org.geotools.data.DataStoreFinder;
 import org.geotools.data.FeatureSource;
 import org.geotools.data.wfs.WFSDataStore;
-import org.geotools.data.wfs.v1_1_0.WFS_1_1_0_DataStore;
 import org.geotools.feature.FeatureCollection;
 import org.geotools.geometry.jts.ReferencedEnvelope;
 import org.opengis.feature.Feature;
@@ -17,38 +16,35 @@ import org.opengis.feature.simple.SimpleFeature;
 import org.opengis.feature.simple.SimpleFeatureType;
 import org.opengis.feature.type.AttributeType;
 
+import com.vividsolutions.jts.geom.Point;
+import com.vividsolutions.jts.io.ParseException;
+import com.vividsolutions.jts.io.WKTReader;
+
 
 public class WFSCapabilities {
 
-	public static void main(String[] args) throws IOException {
-		
+	public static void main(String[] args) throws IOException, ParseException {
+		//"http://localhost:8080/geoserver/ows?service=wfs&version=1.1.0&request=GetCapabilities"; 
 		String getCapabilities = "http://www2.sipam.gov.br/geoserver/wfs?service=WFS&request=GetCapabilities";
 
 		Map connectionParameters = new HashMap();
 		connectionParameters.put("WFSDataStoreFactory:GET_CAPABILITIES_URL", getCapabilities );
-
-		// Step 2 - connection
 		DataStore data = DataStoreFinder.getDataStore( connectionParameters );
-	
-		
-		// Step 3 - discouvery
-		String typeNames[] = data.getTypeNames();
-		String typeName = typeNames[0];
-		SimpleFeatureType schema = data.getSchema(typeName);
-
-		for (AttributeType type : schema.getTypes()) {
-		
-			System.out.println(type.getName());
-		}
-		
-		System.out.println(data.getInfo().getDescription());
-		
-		WFSDataStore wfsStore = (WFSDataStore) data;
-		System.out.println(wfsStore.getCapabilitiesURL());
-
-		// Step 4 - target
-		FeatureSource<SimpleFeatureType, SimpleFeature> source = data.getFeatureSource( typeName );
-		System.out.println( "Metadata Bounds:"+ source.getBounds() );
+//		String typeNames[] = data.getTypeNames();
+//		String typeName = typeNames[1];
+//		SimpleFeatureType schema = data.getSchema(typeName);
+//
+//		for (String type : data.getTypeNames()) {
+//		
+//			System.out.println(type);
+//		}
+//		
+//		System.out.println(data.getInfo().getDescription());
+//		
+//		WFSDataStore wfsStore = (WFSDataStore) data;
+//		System.out.println(wfsStore.getCapabilitiesURL());
+		FeatureSource<SimpleFeatureType, SimpleFeature> source = data.getFeatureSource(data.getTypeNames()[1] );
+//		System.out.println( "Metadata Bounds:"+ source.getBounds() );
 
 //		// Step 5 - query
 //		String geomName = schema.get
@@ -67,10 +63,12 @@ public class WFSCapabilities {
 		try {
 		    while( iterator.hasNext() ){
 		        Feature feature = (Feature) iterator.next();
-		        System.out.println(feature);
-		    bounds.include( feature.getBounds() );
+		        System.out.print("LONGITUDE: " + ((Point)feature.getDefaultGeometryProperty().getValue()).getX() + " , ");
+		        System.out.println("LATITUDE: " +((Point)feature.getDefaultGeometryProperty().getValue()).getY());
+		        
+//		    bounds.include( feature.getBounds() );
 		}
-		    System.out.println( "Calculated Bounds:"+ bounds );
+//		    System.out.println( "Calculated Bounds:"+ bounds );
 		}
 		finally {
 		    features.close( iterator );

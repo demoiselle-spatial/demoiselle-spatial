@@ -13,9 +13,11 @@ import br.gov.frameworkdemoiselle.spatial.component.feature.BeanSimpleFeatureCon
 import br.gov.frameworkdemoiselle.spatial.component.feature.util.BeanHelper;
 import br.gov.frameworkdemoiselle.spatial.component.kml.KMLBuilder;
 import br.gov.frameworkdemoiselle.spatial.component.kml.exception.KMLBuilderException;
+import de.micromata.opengis.kml.v_2_2_0.ColorMode;
 import de.micromata.opengis.kml.v_2_2_0.Document;
 import de.micromata.opengis.kml.v_2_2_0.Kml;
 import de.micromata.opengis.kml.v_2_2_0.KmlFactory;
+import de.micromata.opengis.kml.v_2_2_0.Style;
 
 public class KMLBuilderImpl implements KMLBuilder {
 
@@ -47,6 +49,7 @@ public class KMLBuilderImpl implements KMLBuilder {
 		
 		Kml kml = KmlFactory.createKml();
 		Document document = kml.createAndSetDocument();
+		this.styleKML(document);
 		SimpleFeature feature = null;
 		String featureName = null;
 		
@@ -114,10 +117,14 @@ public class KMLBuilderImpl implements KMLBuilder {
 	public Kml buildKmlFromSimpleFeature(SimpleFeature simpleFeature) {
 		
 		Kml kml = KmlFactory.createKml();
+		Document document = kml.createAndSetDocument();
+		this.styleKML(document);
+
 		String featureName = null;
 
 			featureName = simpleFeature.getID() == null?null:simpleFeature.getID();
-			kml.setFeature(new SimpleFeatureKMLConverter().simpleFeatureToPlaceMark(simpleFeature, featureName, null));
+			document.addToFeature(new SimpleFeatureKMLConverter().simpleFeatureToPlaceMark(simpleFeature, featureName, null));
+			//kml.setFeature();
 
 		return kml;
 	}
@@ -161,6 +168,7 @@ public class KMLBuilderImpl implements KMLBuilder {
 		
 		Kml kml = KmlFactory.createKml();
 		Document document = kml.createAndSetDocument();
+		this.styleKML(document);
 		String featureName = null;
 		
 		if(simpleFeatureList == null)
@@ -178,6 +186,18 @@ public class KMLBuilderImpl implements KMLBuilder {
 		
 			
 		return kml;
+	}
+	
+	private void styleKML(Document document)
+	{
+		Style style = KmlFactory.createStyle();
+		
+		style.setId("demoiselle");
+		style.createAndSetLineStyle().withColor("ff00ffff").withWidth(2.0);
+		style.createAndSetPolyStyle().withColor("7fff0000");
+		
+		document.getStyleSelector().add(style);
+		
 	}
 
 }
