@@ -1,5 +1,7 @@
 package br.gov.frameworkdemoiselle.spatial.geocode.nominatim.impl;
 
+import java.io.Serializable;
+
 import br.gov.frameworkdemoiselle.spatial.geocode.ReverseGeocoding;
 import br.gov.frameworkdemoiselle.spatial.geocode.model.GeocodingResponse;
 import br.gov.frameworkdemoiselle.spatial.geocode.model.GeocodingServiceReturnStatus;
@@ -10,9 +12,10 @@ import br.gov.frameworkdemoiselle.spatial.geocode.util.JTSUtil;
 import com.vividsolutions.jts.geom.Point;
 
 
-public class ReverseGeocodingNominatimImpl implements ReverseGeocoding {
+public class ReverseGeocodingNominatimImpl implements ReverseGeocoding, Serializable {
 
 	
+	private static final long serialVersionUID = 1L;
 	
 	private NominatimRequest request = new NominatimRequest();
 	

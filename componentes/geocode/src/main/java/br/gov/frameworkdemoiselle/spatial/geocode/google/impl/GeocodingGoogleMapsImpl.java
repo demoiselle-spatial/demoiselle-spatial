@@ -1,5 +1,7 @@
 package br.gov.frameworkdemoiselle.spatial.geocode.google.impl;
 
+import java.io.Serializable;
+
 import br.gov.frameworkdemoiselle.spatial.geocode.Geocoding;
 import br.gov.frameworkdemoiselle.spatial.geocode.model.GeocodingResponse;
 import br.gov.frameworkdemoiselle.spatial.geocode.model.GeocodingServiceReturnStatus;
@@ -12,8 +14,11 @@ import com.google.code.geocoder.model.LatLngBounds;
 import com.vividsolutions.jts.geom.Envelope;
 
 
-public class GeocodingGoogleMapsImpl implements Geocoding{
+public class GeocodingGoogleMapsImpl implements Geocoding,Serializable{
 	
+
+	private static final long serialVersionUID = 1L;
+
 	private final Geocoder geocoder = new Geocoder();
 	
 	private GeocoderRequestBuilder requestBuilder;

@@ -7,7 +7,7 @@ import com.vividsolutions.jts.geom.Polygon;
 
 public class BeanSamplePolygon extends ParentBean{
 
-	@FeatureName(compositeName="Name: $")
+	@FeatureName(compositeName="O dado é: $")
 	private String name;
 	
 	@FeatureAttributeExcluded
