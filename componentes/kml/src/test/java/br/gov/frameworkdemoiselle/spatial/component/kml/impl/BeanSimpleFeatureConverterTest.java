@@ -4,6 +4,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.opengis.feature.simple.SimpleFeature;
 
+import br.gov.frameworkdemoiselle.spatial.component.kml.impl.test.BeanSamplePolygon;
+import br.gov.frameworkdemoiselle.spatial.component.kml.impl.test.ParentBean;
+
 import com.vividsolutions.jts.geom.Polygon;
 import com.vividsolutions.jts.io.ParseException;
 import com.vividsolutions.jts.io.WKTReader;
@@ -23,7 +26,7 @@ public class BeanSimpleFeatureConverterTest {
 	@Test
 	public void testBeanToSimpleFeaturePolygon()
 	{
-		BeanSamplePolygon bean = new BeanSamplePolygon("Client 1", 1, 1.8, polygon1, new AnotherBean(1l));
+		BeanSamplePolygon bean = new BeanSamplePolygon("Client 1", 1, 1.8, polygon1, new ParentBean(1l));
 		
 		SimpleFeature feature = BeanSimpleFeatureConverter.beanToSimpleFeature(bean);
 		Placemark placemark =  new SimpleFeatureKMLConverter().simpleFeatureToPlaceMark(feature, null, null);

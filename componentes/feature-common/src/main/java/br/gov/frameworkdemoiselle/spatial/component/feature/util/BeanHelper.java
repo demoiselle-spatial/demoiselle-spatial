@@ -79,15 +79,19 @@ public class BeanHelper {
 	}
 	
 	@SuppressWarnings("rawtypes")
-	public static boolean implementsInterface(Class _interface, Object bean)
+	public static boolean implementsInterface(Class _interface, Class beanClazz)
 	{
-		for (Class implementsInterface : bean.getClass().getInterfaces()) {
+		for (Class implementsInterface : beanClazz.getInterfaces()) {
 			
 			if(_interface.equals(implementsInterface))
 				return true;
 		}
 		
-		return false;
+		if(beanClazz.getSuperclass().equals(Object.class))
+			return false;
+		
+		return implementsInterface(_interface, beanClazz.getSuperclass());
+		
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })

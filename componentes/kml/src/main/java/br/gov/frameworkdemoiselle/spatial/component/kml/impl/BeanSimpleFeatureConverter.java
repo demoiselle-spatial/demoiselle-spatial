@@ -15,6 +15,9 @@ import org.geotools.referencing.crs.DefaultGeographicCRS;
 import org.opengis.feature.simple.SimpleFeature;
 import org.opengis.feature.simple.SimpleFeatureType;
 
+import br.gov.frameworkdemoiselle.spatial.component.feature.exception.FeatureException;
+import br.gov.frameworkdemoiselle.spatial.component.feature.util.BeanHelper;
+
 
 public class BeanSimpleFeatureConverter {
 

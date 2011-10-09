@@ -4,15 +4,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.OutputStream;
 import java.io.Writer;
-import java.lang.reflect.Field;
+import java.util.Collection;
 import java.util.List;
-
-import jodd.bean.BeanUtil;
 
 import org.opengis.feature.simple.SimpleFeature;
 
 import br.gov.frameworkdemoiselle.spatial.component.feature.BeanSimpleFeatureConverter;
-import br.gov.frameworkdemoiselle.spatial.component.feature.annotation.FeatureName;
 import br.gov.frameworkdemoiselle.spatial.component.feature.util.BeanHelper;
 import br.gov.frameworkdemoiselle.spatial.component.kml.KMLBuilder;
 import br.gov.frameworkdemoiselle.spatial.component.kml.exception.KMLBuilderException;
@@ -53,9 +50,9 @@ public class KMLBuilderImpl implements KMLBuilder {
 		SimpleFeature feature = null;
 		String featureName = null;
 		
-		if(BeanHelper.implementsInterface(List.class, bean))
+		if(BeanHelper.implementsInterface(Collection.class, bean.getClass()))
 		{
-			for (Object object : ((List<Object>)bean)) {
+			for (Object object : ((Collection<Object>)bean)) {
 				
 				feature = BeanSimpleFeatureConverter.beanToSimpleFeature(object);
 				featureName = feature.getProperty("@featureName").getValue() == null?null:feature.getProperty("@featureName").getValue().toString();
@@ -77,6 +74,110 @@ public class KMLBuilderImpl implements KMLBuilder {
 		
 		Kml kml = this.buildKml(bean);
 		kml.marshal(writer);
+	}
+
+	@Override
+	public void buildKmlAsFileFromSimpleFeature(SimpleFeature simpleFeature, File file) {
+		
+		Kml kml = this.buildKmlFromSimpleFeature(simpleFeature);
+		try {
+			kml.marshal(file);
+		} catch (FileNotFoundException e) {
+			throw new KMLBuilderException("Error on marshal KML to file", e);
+		}
+		
+	}
+
+	@Override
+	public void buildKmlAsStreamFromSimpleFeature(SimpleFeature simpleFeature,
+			OutputStream stream) {
+		
+		Kml kml = this.buildKmlFromSimpleFeature(simpleFeature);
+		try {
+			kml.marshal(stream);
+		} catch (FileNotFoundException e) {
+			throw new KMLBuilderException("Error on marshal KML to file", e);
+		}
+		
+	}
+
+	@Override
+	public void buildKmlAsStreamFromSimpleFeature(SimpleFeature simpleFeature, Writer writer) {
+		
+		Kml kml = this.buildKmlFromSimpleFeature(simpleFeature);
+		
+			kml.marshal(writer);
+		
+	}
+
+	@Override
+	public Kml buildKmlFromSimpleFeature(SimpleFeature simpleFeature) {
+		
+		Kml kml = KmlFactory.createKml();
+		String featureName = null;
+
+			featureName = simpleFeature.getID() == null?null:simpleFeature.getID();
+			kml.setFeature(new SimpleFeatureKMLConverter().simpleFeatureToPlaceMark(simpleFeature, featureName, null));
+
+		return kml;
+	}
+
+	@Override
+	public void buildKmlAsFileFromSimpleFeature(List<SimpleFeature> simpleFeatureList, File file) {
+		
+		Kml kml = this.buildKmlFromSimpleFeature(simpleFeatureList);
+		try {
+			kml.marshal(file);
+		} catch (FileNotFoundException e) {
+			throw new KMLBuilderException("Error on marshal KML to file", e);
+		}
+		
+	}
+
+	@Override
+	public void buildKmlAsStreamFromSimpleFeature(List<SimpleFeature> simpleFeatureList,
+			OutputStream stream) {
+		
+		Kml kml = this.buildKmlFromSimpleFeature(simpleFeatureList);
+		try {
+			kml.marshal(stream);
+		} catch (FileNotFoundException e) {
+			throw new KMLBuilderException("Error on marshal KML to file", e);
+		}
+		
+	}
+
+	@Override
+	public void buildKmlAsStreamFromSimpleFeature(List<SimpleFeature> simpleFeatureList,
+			Writer writer) {
+		
+		Kml kml = this.buildKmlFromSimpleFeature(simpleFeatureList);
+		kml.marshal(writer);
+
+	}
+
+	@Override
+	public Kml buildKmlFromSimpleFeature(List<SimpleFeature> simpleFeatureList) {
+		
+		Kml kml = KmlFactory.createKml();
+		Document document = kml.createAndSetDocument();
+		String featureName = null;
+		
+		if(simpleFeatureList == null)
+			return null;
+		
+		if(simpleFeatureList.isEmpty())
+			return null;
+		
+		for (SimpleFeature simpleFeature : simpleFeatureList) {
+
+			featureName = simpleFeature.getID() == null?null:simpleFeature.getID();
+			
+			document.addToFeature(new SimpleFeatureKMLConverter().simpleFeatureToPlaceMark(simpleFeature, featureName, null));
+		}
+		
+			
+		return kml;
 	}
 
 }
