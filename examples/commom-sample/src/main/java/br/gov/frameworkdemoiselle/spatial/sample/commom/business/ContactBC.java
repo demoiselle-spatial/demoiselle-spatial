@@ -4,6 +4,7 @@ import javax.inject.Inject;
 
 import br.gov.frameworkdemoiselle.annotation.Startup;
 import br.gov.frameworkdemoiselle.message.MessageContext;
+import br.gov.frameworkdemoiselle.spatial.component.kml.KMLBuilder;
 import br.gov.frameworkdemoiselle.spatial.sample.commom.domain.Contact;
 import br.gov.frameworkdemoiselle.spatial.sample.commom.message.InfoMessages;
 import br.gov.frameworkdemoiselle.spatial.sample.commom.persistence.ContactDAO;
@@ -22,6 +23,7 @@ public class ContactBC extends DelegateCrud<Contact, Long, ContactDAO> {
 	
 //	@Inject
 //	private ReverseGeocoding reverseGeocoding;
+
 
 
 	@Override

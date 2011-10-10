@@ -7,18 +7,20 @@ import java.io.Writer;
 import java.util.Collection;
 import java.util.List;
 
+import javax.enterprise.inject.Default;
+
 import org.opengis.feature.simple.SimpleFeature;
 
 import br.gov.frameworkdemoiselle.spatial.component.feature.BeanSimpleFeatureConverter;
 import br.gov.frameworkdemoiselle.spatial.component.feature.util.BeanHelper;
 import br.gov.frameworkdemoiselle.spatial.component.kml.KMLBuilder;
 import br.gov.frameworkdemoiselle.spatial.component.kml.exception.KMLBuilderException;
-import de.micromata.opengis.kml.v_2_2_0.ColorMode;
 import de.micromata.opengis.kml.v_2_2_0.Document;
 import de.micromata.opengis.kml.v_2_2_0.Kml;
 import de.micromata.opengis.kml.v_2_2_0.KmlFactory;
 import de.micromata.opengis.kml.v_2_2_0.Style;
 
+@Default
 public class KMLBuilderImpl implements KMLBuilder {
 
 	@Override

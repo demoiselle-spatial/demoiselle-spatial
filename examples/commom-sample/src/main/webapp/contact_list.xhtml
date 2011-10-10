@@ -49,6 +49,12 @@
 					<p:column style="width:5%;">
 					<p:commandButton value="Map" onclick="map.setCenter(new OpenLayers.LonLat(#{bean.point.centroid.x}, #{bean.point.centroid.y}), map.getZoom());" type="button"/>
 				</p:column>
+				
+				<p:column style="width:5%;">
+					<p:commandButton value="KML" ajax="false">
+        				<p:fileDownload value="#{contactListMB.kml}" />
+  					</p:commandButton>
+				</p:column>
 			</p:dataTable>
 			<h:panelGroup>
 			<div id="toolbar">

@@ -28,11 +28,9 @@
 				<h:panelGrid id="fields" columns="2">
 					<h:outputLabel value="#{messages['contact.label.id']}: " for="id" styleClass="text-input" />
 					<h:outputText id="id" value="#{contactEditMB.bean.id}" />
-
 					<h:outputLabel value="#{messages['contact.label.name']}: " for="name" styleClass="text-input" />
 					<h:inputText id="name" value="#{contactEditMB.bean.name}"
 						title="#{messages['contact.alt.name']}" />
-
 					<h:outputLabel value="#{messages['contact.label.telefone']}: " for="telephone" styleClass="text-input" />
 					<h:inputText id="telephone" value="#{contactEditMB.bean.telephone}" title="#{messages['contact.alt.telefone']}" />
 					

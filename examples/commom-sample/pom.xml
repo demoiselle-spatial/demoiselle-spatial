@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>br.gov.frameworkdemoiselle.spatial.sample</groupId>
-	<artifactId>contac-list-spatial</artifactId>
+	<artifactId>contact-list-spatial</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
@@ -26,9 +26,9 @@
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
-		    <groupId>br.gov.frameworkdemoiselle</groupId>
-		    <artifactId>demoiselle-jta</artifactId>
-		    <scope>compile</scope>
+			<groupId>br.gov.frameworkdemoiselle</groupId>
+			<artifactId>demoiselle-jta</artifactId>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.primefaces</groupId>
@@ -38,31 +38,94 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
-			</dependency>
+<!-- 			<exclusions> -->
+<!-- 				<exclusion> -->
+<!-- 					<groupId>com.sun.xml.bind</groupId> -->
+<!-- 					<artifactId>jaxb-impl</artifactId> -->
+<!-- 				</exclusion> -->
+<!-- 				<exclusion> -->
+<!-- 					<groupId>com.sun.xml.bind</groupId> -->
+<!-- 					<artifactId>jaxb-xjc</artifactId> -->
+<!-- 				</exclusion> -->
+<!-- 				<exclusion> -->
+<!-- 					<groupId>com.sun.xml.bind</groupId> -->
+<!-- 					<artifactId>jaxb-api</artifactId> -->
+<!-- 				</exclusion> -->
+<!-- 			</exclusions> -->
+		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>com.sun.xml.bind</groupId> -->
+<!-- 			<artifactId>jaxb-impl</artifactId> -->
+<!-- 			<version>2.1</version> -->
+<!-- 			<scope>provided</scope> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>com.sun.xml.bind</groupId> -->
+<!-- 			<artifactId>jaxb-xjc</artifactId> -->
+<!-- 			<version>2.1</version> -->
+<!-- 			<scope>test</scope> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>com.sun.xml.bind</groupId> -->
+<!-- 			<artifactId>jaxb-api</artifactId> -->
+<!-- 			<version>2.1</version> -->
+<!-- 			<scope>test</scope> -->
+<!-- 		</dependency> -->
+		<dependency>
+			<groupId>xerces</groupId>
+			<artifactId>xercesImpl</artifactId>
+			<version>2.4.0</version>
+			<scope>test</scope>
+		</dependency>
 		<!-- OL4JSF -->
 		<dependency>
-            <groupId>org.ol4jsf</groupId>
-            <artifactId>ol4jsf-core</artifactId>
-            <version>2.0</version>
-            <scope>compile</scope>
-        </dependency>
-		<!-- Dependencias HibernateSpatial (Ainda com problema) -->
+			<groupId>org.ol4jsf</groupId>
+			<artifactId>ol4jsf-core</artifactId>
+			<version>2.2-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+		<!-- Dependencias HibernateSpatial -->
 		<dependency>
-		<groupId>org.hibernatespatial</groupId>
-		<artifactId>hibernate-spatial-postgis</artifactId>
-		<version>1.1</version>
-		<scope>provided</scope>
+			<groupId>org.hibernatespatial</groupId>
+			<artifactId>hibernate-spatial-postgis</artifactId>
+			<version>1.1</version>
+			<exclusions>
+				<exclusion>
+					<groupId>javassist</groupId>
+					<artifactId>javassist</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>3.6.0.Final</version>
+			<scope>provided</scope>
 		</dependency>
 
 
+		<dependency>
+		<groupId>
+		br.gov.frameworkdemoiselle.spatial.component
+		</groupId>
+		<artifactId>kml</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<groupId>com.sun.xml.bind</groupId>
+					<artifactId>jaxb-impl</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.sun.xml.bind</groupId>
+					<artifactId>jaxb-xjc</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.sun.xml.bind</groupId>
+					<artifactId>jaxb-api</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 
-<!-- 		<dependency> -->
-<!-- 			<groupId> -->
-<!-- 				br.gov.frameworkdemoiselle.spatial.component -->
-<!-- 			</groupId> -->
-<!-- 			<artifactId>geocode</artifactId> -->
-<!-- 			<version>1.0.0-SNAPSHOT</version> -->
-<!-- 		</dependency> -->
 	</dependencies>
 
 	<repositories>
