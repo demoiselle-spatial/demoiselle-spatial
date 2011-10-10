@@ -7,8 +7,8 @@
 		<h:form>
 			<p:toolbar>
 				<p:toolbarGroup align="left">
-					<p:commandButton title="#{messages['button.new']}" image="ui-icon-document" action="#{clientListMB.getNextView}"
-						actionListener="#{clientListMB.clear}" ajax="false" />
+					<p:commandButton title="#{messages['button.new']}" image="ui-icon-document" action="#{contactListMB.getNextView}"
+						actionListener="#{contactListMB.clear}" ajax="false" />
 
 					<p:commandButton title="#{messages['button.delete']}" image="ui-icon-trash" onclick="confirmation.show()"
 						type="button" immediate="true" ajax="false" />
@@ -16,32 +16,32 @@
 					<p:confirmDialog message="#{messages['label.confirm.delete']}" showEffect="bounce" hideEffect="explode"
 						header="#{messages['label.dialog.alert']}!" severity="alert" widgetVar="confirmation">
 
-						<h:commandButton value="#{messages['button.dialog.yes']}" action="#{clientListMB.deleteSelection}"
-							actionListener="#{clientListMB.clear}" />
+						<h:commandButton value="#{messages['button.dialog.yes']}" action="#{contactListMB.deleteSelection}"
+							actionListener="#{contactListMB.clear}" />
 						<h:commandButton value="#{messages['button.dialog.no']}" onclick="confirmation.hide()" type="button" />
 					</p:confirmDialog>
 				</p:toolbarGroup>
 			</p:toolbar>
 
-			<p:dataTable id="list" var="bean" value="#{clientListMB.resultList}">
-				<f:facet name="header">#{messages['client.list.table.title']}</f:facet>
+			<p:dataTable id="list" var="bean" value="#{contactListMB.resultList}">
+				<f:facet name="header">#{messages['contact.list.table.title']}</f:facet>
 				<p:column style="width:5%;">
-					<h:selectBooleanCheckbox value="#{clientListMB.selection[bean.id]}"></h:selectBooleanCheckbox>
+					<h:selectBooleanCheckbox value="#{contactListMB.selection[bean.id]}"></h:selectBooleanCheckbox>
 				</p:column>
 				<p:column style="width:5%;" sortBy="#{bean.id}">
-					<f:facet name="header">#{messages['client.label.id']}</f:facet>
+					<f:facet name="header">#{messages['contact.label.id']}</f:facet>
 					<h:outputText value="#{bean.id}" />
 				</p:column>
 				<p:column sortBy="#{bean.name}">
-					<f:facet name="header">#{messages['client.label.name']}</f:facet>
-					<h:commandLink action="#{clientListMB.getNextView}" actionListener="#{clientListMB.clear}">
+					<f:facet name="header">#{messages['contact.label.name']}</f:facet>
+					<h:commandLink action="#{contactListMB.getNextView}" actionListener="#{contactListMB.clear}">
 						<h:outputText value="#{bean.name}" />
 						<f:param name="id" value="#{bean.id}" />
 					</h:commandLink>
 				</p:column>
 				<p:column sortBy="#{bean.telephone}">
-					<f:facet name="header">#{messages['client.label.telefone']}</f:facet>
-					<h:commandLink action="#{bookmarkListMB.getNextView}" actionListener="#{bookmarkListMB.clear}">
+					<f:facet name="header">#{messages['contact.label.telefone']}</f:facet>
+					<h:commandLink action="#{contactListMB.getNextView}" actionListener="#{contactListMB.clear}">
 						<h:outputText value="#{bean.telephone}" />
 						<f:param name="id" value="#{bean.id}"/>
 					</h:commandLink>
@@ -78,7 +78,7 @@
 	                <m:overviewMapControl />
 	                <m:keyboardDefaultsControl />
 	                <m:permalinkControl />	                
-					<m:vectorLayer name="Features" value="#{clientListMB.resultFeatureList}" jsVariable="features"/>
+					<m:vectorLayer name="Features" value="#{contactListMB.resultFeatureList}" jsVariable="features"/>
 					
 					  
 					<m:panelControl options="{div:document.getElementById('toolbar_group')}" jsVariable="toolbar">

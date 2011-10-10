@@ -9,8 +9,8 @@ import org.ol4jsf.util.WKTFeaturesCollection;
 
 import br.gov.frameworkdemoiselle.annotation.NextView;
 import br.gov.frameworkdemoiselle.annotation.PreviousView;
-import br.gov.frameworkdemoiselle.spatial.sample.commom.business.ClientBC;
-import br.gov.frameworkdemoiselle.spatial.sample.commom.domain.Client;
+import br.gov.frameworkdemoiselle.spatial.sample.commom.business.ContactBC;
+import br.gov.frameworkdemoiselle.spatial.sample.commom.domain.Contact;
 import br.gov.frameworkdemoiselle.stereotype.ViewController;
 import br.gov.frameworkdemoiselle.template.AbstractListPageBean;
 import br.gov.frameworkdemoiselle.transaction.Transactional;
@@ -18,17 +18,17 @@ import br.gov.frameworkdemoiselle.transaction.Transactional;
 import com.vividsolutions.jts.geom.Geometry;
 
 @ViewController
-@NextView("/client_edit.xhtml")
-@PreviousView("/client_list.xhtml")
-public class ClientListMB extends AbstractListPageBean<Client, Long> {
+@NextView("/contact_edit.xhtml")
+@PreviousView("/contact_list.xhtml")
+public class ContactListMB extends AbstractListPageBean<Contact, Long> {
 	
 	private static final long serialVersionUID = 1L;
 
 	@Inject
-	private ClientBC bc;
+	private ContactBC bc;
 	
 	@Override
-	protected List<Client> handleResultList() {
+	protected List<Contact> handleResultList() {
 		
 		return this.bc.findAll();
 	}
@@ -59,10 +59,10 @@ public class ClientListMB extends AbstractListPageBean<Client, Long> {
 	 */
 	public String getResultFeatureList() {
 		
-		 List<Client> beans = this.getResultList();
+		 List<Contact> beans = this.getResultList();
 		 WKTFeaturesCollection<Geometry> wktFeatures = new WKTFeaturesCollection<Geometry>();
 		 
-		 for (Client client : beans) {			 
+		 for (Contact client : beans) {			 
 			 wktFeatures.addFeature(client.getPoint());	 
 		}
 		

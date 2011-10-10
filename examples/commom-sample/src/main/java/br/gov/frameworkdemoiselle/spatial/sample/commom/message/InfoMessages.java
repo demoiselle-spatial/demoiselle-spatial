@@ -5,9 +5,9 @@ import br.gov.frameworkdemoiselle.message.Message;
 
 public interface InfoMessages {
 
-	final Message CLIENT_DELETE_OK = new DefaultMessage("{client-delete-ok}");
+	final Message CONTACT_DELETE_OK = new DefaultMessage("{contact-delete-ok}");
 
-    final Message CLIENT_INSERT_OK = new DefaultMessage("{client-insert-ok}");
+    final Message CONTACT_INSERT_OK = new DefaultMessage("{contact-insert-ok}");
 
-    final Message CLIENT_UPDATE_OK = new DefaultMessage("{client-update-ok}");
+    final Message CONTACT_UPDATE_OK = new DefaultMessage("{contact-update-ok}");
 }

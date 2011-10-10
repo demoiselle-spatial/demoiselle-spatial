@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Email;
@@ -17,7 +16,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import com.vividsolutions.jts.geom.Geometry;
 
 @Entity
-public class Client implements Serializable {
+public class Contact implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -26,30 +25,30 @@ public class Client implements Serializable {
 	private Long id;
 	
 	@Column
-	@NotEmpty(message="{client.name.notempty}")
+	@NotEmpty
 	private String name;
 	
 	@Column
-	@NotEmpty(message="{client.telephone.notempty}")
+	@NotEmpty
 	private String telephone;
 	
 	@Column
-	@NotEmpty(message="{client.email.notempty}")
+	@NotEmpty
     @Email(message="{client.email.email}")
 	private String email;
 	
 	@Embedded
 	private Address address;
 	
-	@NotNull(message="{client.point.notnull}")
+	@NotNull
 	@Type(type = "org.hibernatespatial.GeometryUserType")
 	private Geometry point;
 	
-	public Client() {
+	public Contact() {
 		super();
 	}
 	
-	public Client(String name, String telefone, String email) {
+	public Contact(String name, String telefone, String email) {
 		super();
 		this.name = name;
 		this.telephone = telefone;
@@ -57,7 +56,7 @@ public class Client implements Serializable {
 		
 	}
 	
-	public Client(String name, String telefone, String email, Geometry point) {
+	public Contact(String name, String telefone, String email, Geometry point) {
 		super();
 		this.name = name;
 		this.telephone = telefone;

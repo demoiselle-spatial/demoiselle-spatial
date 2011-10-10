@@ -7,8 +7,8 @@
 	<persistence-unit name="bookmark-ds" transaction-type="RESOURCE_LOCAL">
 		<non-jta-data-source>java:/DefaultDS</non-jta-data-source>
 		
-		<class>br.gov.frameworkdemoiselle.spatial.sample.commom.domain.Bookmark</class>
-		<class>br.gov.frameworkdemoiselle.spatial.sample.commom.domain.Client</class>
+		
+		<class>br.gov.frameworkdemoiselle.spatial.sample.commom.domain.Contact</class>
 		<class>br.gov.frameworkdemoiselle.spatial.sample.commom.domain.Address</class>
 
 		<properties>

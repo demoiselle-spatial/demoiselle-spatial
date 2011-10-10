@@ -3,21 +3,21 @@ package br.gov.frameworkdemoiselle.spatial.sample.commom.view;
 import javax.inject.Inject;
 
 import br.gov.frameworkdemoiselle.annotation.PreviousView;
-import br.gov.frameworkdemoiselle.spatial.sample.commom.business.ClientBC;
-import br.gov.frameworkdemoiselle.spatial.sample.commom.domain.Client;
+import br.gov.frameworkdemoiselle.spatial.sample.commom.business.ContactBC;
+import br.gov.frameworkdemoiselle.spatial.sample.commom.domain.Contact;
 import br.gov.frameworkdemoiselle.stereotype.ViewController;
 import br.gov.frameworkdemoiselle.template.AbstractEditPageBean;
 import br.gov.frameworkdemoiselle.transaction.Transactional;
 
 
 @ViewController
-@PreviousView("/client_list.xhtml")
-public class ClientEditMB extends AbstractEditPageBean<Client, Long> {
+@PreviousView("/contact_list.xhtml")
+public class ContactEditMB extends AbstractEditPageBean<Contact, Long> {
 
 	private static final long serialVersionUID = 1L;
 	
 	@Inject
-	private ClientBC bc;
+	private ContactBC bc;
 
 	@Override
 	@Transactional
