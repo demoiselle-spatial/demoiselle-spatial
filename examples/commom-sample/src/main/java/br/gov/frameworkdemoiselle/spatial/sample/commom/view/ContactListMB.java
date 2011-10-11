@@ -1,13 +1,11 @@
 package br.gov.frameworkdemoiselle.spatial.sample.commom.view;
 
 import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 
 import org.ol4jsf.util.WKTFeaturesCollection;
@@ -83,21 +81,21 @@ public class ContactListMB extends AbstractListPageBean<Contact, Long> {
 	public StreamedContent getKml() throws IOException
 	{
 		
-		File file = File.createTempFile("kml", ".kml");
+		boolean selected;
+		List<Contact> contacts = new ArrayList<Contact>();
 		
-		Contact contact = bc.load(1l);
+		for (Iterator<Long> iter = getSelection().keySet().iterator(); iter.hasNext();) {
+			Long id = iter.next();
+			selected = getSelection().get(id);
+
+			if (selected) {
+				contacts.add(bc.load(id));
+				iter.remove();
+			}
+		}	
 		
-		
-		builder.buildKmlAsFile(contact, file);
-		
-		
-		return new DefaultStreamedContent(new BufferedInputStream(new FileInputStream(file)), "application/vnd.google-earth.kml+xml",
+		return new DefaultStreamedContent(new BufferedInputStream(builder.buildKmlAsFile(contacts)), "application/vnd.google-earth.kml+xml",
                 "teste.kml");
-	}
-	
-	public void setKml(StreamedContent stream)
-	{
-		
 	}
 
 }

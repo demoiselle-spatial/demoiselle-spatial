@@ -13,6 +13,8 @@ import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import br.gov.frameworkdemoiselle.spatial.component.feature.annotation.FeatureName;
+
 import com.vividsolutions.jts.geom.Geometry;
 
 @Entity
@@ -26,6 +28,7 @@ public class Contact implements Serializable {
 	
 	@Column
 	@NotEmpty
+	@FeatureName
 	private String name;
 	
 	@Column
@@ -34,7 +37,7 @@ public class Contact implements Serializable {
 	
 	@Column
 	@NotEmpty
-    @Email(message="{client.email.email}")
+    @Email
 	private String email;
 	
 	@Embedded

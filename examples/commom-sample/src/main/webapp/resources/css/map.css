@@ -27,4 +27,4 @@
 #toolbar_group .olControlZoomToMaxExtentItemActive { background-image: url("#{resource['images:icon_full_map.gif']}"); }
 #toolbar_group .olControlDrawFeatureItemInactive { background-image: url("#{resource['images:draw_point_off.png']}"); }
 #toolbar_group .olControlDrawFeatureItemActive { background-image: url("#{resource['images:draw_point_on.png']}"); }
-
+.icon-kml { background-image: url("#{resource['images:zoomin.png']}"); }

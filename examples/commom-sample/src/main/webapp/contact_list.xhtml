@@ -21,6 +21,11 @@
 						<h:commandButton value="#{messages['button.dialog.no']}" onclick="confirmation.hide()" type="button" />
 					</p:confirmDialog>
 				</p:toolbarGroup>
+				<p:toolbarGroup align="right">
+				<p:commandButton title="#{messages['button.kml']}" image="icon-kml" ajax="false" >
+					<p:fileDownload value="#{contactListMB.kml}" />
+				</p:commandButton>
+				</p:toolbarGroup>
 			</p:toolbar>
 
 			<p:dataTable id="list" var="bean" value="#{contactListMB.resultList}">
@@ -48,12 +53,6 @@
 				</p:column>
 					<p:column style="width:5%;">
 					<p:commandButton value="Map" onclick="map.setCenter(new OpenLayers.LonLat(#{bean.point.centroid.x}, #{bean.point.centroid.y}), map.getZoom());" type="button"/>
-				</p:column>
-				
-				<p:column style="width:5%;">
-					<p:commandButton value="KML" ajax="false">
-        				<p:fileDownload value="#{contactListMB.kml}" />
-  					</p:commandButton>
 				</p:column>
 			</p:dataTable>
 			<h:panelGroup>

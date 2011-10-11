@@ -1,6 +1,7 @@
 package br.gov.frameworkdemoiselle.spatial.component.kml;
 
 import java.io.File;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Writer;
 import java.util.List;
@@ -20,6 +21,8 @@ public interface KMLBuilder {
 	
 	public Kml buildKml(Object bean);
 	
+	public InputStream buildKmlAsFile(Object bean);
+	
 	public void buildKmlAsFileFromSimpleFeature(SimpleFeature simpleFeature, File file);
 	
 	public void buildKmlAsStreamFromSimpleFeature(SimpleFeature simpleFeature, OutputStream stream);
@@ -28,6 +31,8 @@ public interface KMLBuilder {
 	
 	public Kml buildKmlFromSimpleFeature(SimpleFeature simpleFeature);
 	
+	public InputStream buildKmlAsFileFromSimpleFeature(SimpleFeature simpleFeature);
+	
 	public void buildKmlAsFileFromSimpleFeature(List<SimpleFeature> simpleFeatureList, File file);
 	
 	public void buildKmlAsStreamFromSimpleFeature(List<SimpleFeature> simpleFeatureList, OutputStream stream);
@@ -35,5 +40,7 @@ public interface KMLBuilder {
 	public void buildKmlAsStreamFromSimpleFeature(List<SimpleFeature> simpleFeatureList, Writer writer);
 	
 	public Kml buildKmlFromSimpleFeature(List<SimpleFeature> simpleFeatureList);
+	
+	public InputStream buildKmlAsFileFromSimpleFeature(List<SimpleFeature> simpleFeatureList);
 	
 }

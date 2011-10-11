@@ -1,7 +1,11 @@
 package br.gov.frameworkdemoiselle.spatial.component.kml.impl;
 
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Writer;
 import java.util.Collection;
@@ -200,6 +204,61 @@ public class KMLBuilderImpl implements KMLBuilder {
 		
 		document.getStyleSelector().add(style);
 		
+	}
+
+	@Override
+	public InputStream buildKmlAsFile(Object bean) {
+
+		InputStream retorno = null;
+		File file = null;
+		try {
+			file = File.createTempFile("kml", ".kml");
+			this.buildKmlAsFile(bean, file);
+			retorno = new BufferedInputStream(new FileInputStream(file));
+		} catch (FileNotFoundException e) {
+			throw new KMLBuilderException("Error on temp file io ", e); 
+		} catch (IOException e) {
+			throw new KMLBuilderException("Error on temp file io ", e);
+		}
+		
+		return retorno;
+		
+	}
+
+	@Override
+	public InputStream buildKmlAsFileFromSimpleFeature(
+			SimpleFeature simpleFeature) {
+		InputStream retorno = null;
+		File file = null;
+		try {
+			file = File.createTempFile("kml", ".kml");
+			this.buildKmlAsFileFromSimpleFeature(simpleFeature, file);
+			retorno = new BufferedInputStream(new FileInputStream(file));
+		} catch (FileNotFoundException e) {
+			throw new KMLBuilderException("Error on temp file io ", e); 
+		} catch (IOException e) {
+			throw new KMLBuilderException("Error on temp file io ", e);
+		}
+		
+		return retorno;
+	}
+
+	@Override
+	public InputStream buildKmlAsFileFromSimpleFeature(
+			List<SimpleFeature> simpleFeatureList) {
+		InputStream retorno = null;
+		File file = null;
+		try {
+			file = File.createTempFile("kml", ".kml");
+			this.buildKmlAsFileFromSimpleFeature(simpleFeatureList, file);
+			retorno = new BufferedInputStream(new FileInputStream(file));
+		} catch (FileNotFoundException e) {
+			throw new KMLBuilderException("Error on temp file io ", e); 
+		} catch (IOException e) {
+			throw new KMLBuilderException("Error on temp file io ", e);
+		}
+		
+		return retorno;
 	}
 
 }
