@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding="utf-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+   "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" []>
+<book lang="pt">
+
+	<xi:include href="bookinfo.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
+
+	<preface>
+		<title>Sobre o booktour</title>
+		<para>
+			Este documento é um manual prático do projeto <emphasis>Demoiselle Spatial</emphasis> 
+			direcionado para a construção de projetos de aplicações web com requisitos geoespaciais. 
+			O documento apresenta as principais funcionalidades disponíveis no projeto através de um 
+			"passo a passo" para a construção de uma aplicação geo-web exemplo. Ao longo do documento
+			o exemplo evolui funcionalmente a medida que explicamos e aplicamos as componentes 
+			disponíveis no projeto.
+		</para>
+		<note>
+			<para>
+				Apesar do projeto Demoiselle Spatial abstrair boa parte das complexidades inerentes a utilização
+				de componentes espaciais na construção de aplicações web é recomendado o conhecimento mínimo nos seguintes
+				assuntos e componentes de software:
+				<itemizedlist>
+					<listitem>Linguagem Java</listitem>
+					<listitem>Servlets, JSP e Tag Libraries</listitem>
+					<listitem>JavaBeans</listitem>
+					<listitem>HTML e XML</listitem>
+					<listitem>Contêineres e Servidores Web</listitem>
+					<listitem>Framework Demoiselle 2</listitem>
+					<listitem>Hibernate / JPA</listitem>
+					<listitem>OGC WebServices</listitem>
+					<listitem>Biblioteca OpenLayers</listitem>
+					<listitem>Banco de Dados Espacial</listitem>					
+				</itemizedlist>
+			</para>
+		</note>
+		<note>
+			<para>
+				Antes de iniciar com este manual recomendamos a leitura e entendimento dos manuais do framework demoiselle 2.
+				http://demoiselle.sourceforge.net/docs/
+			</para>
+		</note>
+	</preface>
+
+
+
+</book>
