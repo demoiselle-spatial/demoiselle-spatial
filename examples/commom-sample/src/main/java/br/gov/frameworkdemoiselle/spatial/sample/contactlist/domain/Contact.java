@@ -1,4 +1,4 @@
-package br.gov.frameworkdemoiselle.spatial.sample.commom.domain;
+package br.gov.frameworkdemoiselle.spatial.sample.contactlist.domain;
 
 import java.io.Serializable;
 
@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Email;
@@ -18,6 +20,7 @@ import br.gov.frameworkdemoiselle.spatial.component.feature.annotation.FeatureNa
 import com.vividsolutions.jts.geom.Geometry;
 
 @Entity
+@XmlRootElement(name = "contact")
 public class Contact implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -45,6 +48,7 @@ public class Contact implements Serializable {
 	
 	@NotNull
 	@Type(type = "org.hibernatespatial.GeometryUserType")
+	@XmlTransient
 	private Geometry point;
 	
 	public Contact() {

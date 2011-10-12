@@ -1,4 +1,4 @@
-package br.gov.frameworkdemoiselle.spatial.sample.commom.view;
+package br.gov.frameworkdemoiselle.spatial.sample.contactlist.view;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -14,9 +14,11 @@ import org.primefaces.model.StreamedContent;
 
 import br.gov.frameworkdemoiselle.annotation.NextView;
 import br.gov.frameworkdemoiselle.annotation.PreviousView;
+import br.gov.frameworkdemoiselle.message.MessageContext;
 import br.gov.frameworkdemoiselle.spatial.component.kml.KMLBuilder;
-import br.gov.frameworkdemoiselle.spatial.sample.commom.business.ContactBC;
-import br.gov.frameworkdemoiselle.spatial.sample.commom.domain.Contact;
+import br.gov.frameworkdemoiselle.spatial.sample.contactlist.business.ContactBC;
+import br.gov.frameworkdemoiselle.spatial.sample.contactlist.domain.Contact;
+import br.gov.frameworkdemoiselle.spatial.sample.contactlist.message.InfoMessages;
 import br.gov.frameworkdemoiselle.stereotype.ViewController;
 import br.gov.frameworkdemoiselle.template.AbstractListPageBean;
 import br.gov.frameworkdemoiselle.transaction.Transactional;
@@ -79,11 +81,10 @@ public class ContactListMB extends AbstractListPageBean<Contact, Long> {
 	}
 	
 	public StreamedContent getKml() throws IOException
-	{
-		
-		boolean selected;
+	{		
+		boolean selected =false;
 		List<Contact> contacts = new ArrayList<Contact>();
-		
+
 		for (Iterator<Long> iter = getSelection().keySet().iterator(); iter.hasNext();) {
 			Long id = iter.next();
 			selected = getSelection().get(id);
@@ -92,10 +93,10 @@ public class ContactListMB extends AbstractListPageBean<Contact, Long> {
 				contacts.add(bc.load(id));
 				iter.remove();
 			}
-		}	
-		
+		}
+
 		return new DefaultStreamedContent(new BufferedInputStream(builder.buildKmlAsFile(contacts)), "application/vnd.google-earth.kml+xml",
-                "teste.kml");
+                "export.kml");
 	}
 
 }

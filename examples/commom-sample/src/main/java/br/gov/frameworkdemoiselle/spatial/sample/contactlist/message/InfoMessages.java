@@ -1,4 +1,4 @@
-package br.gov.frameworkdemoiselle.spatial.sample.commom.message;
+package br.gov.frameworkdemoiselle.spatial.sample.contactlist.message;
 
 import br.gov.frameworkdemoiselle.message.DefaultMessage;
 import br.gov.frameworkdemoiselle.message.Message;

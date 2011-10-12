@@ -1,13 +1,12 @@
-package br.gov.frameworkdemoiselle.spatial.sample.commom.business;
+package br.gov.frameworkdemoiselle.spatial.sample.contactlist.business;
 
 import javax.inject.Inject;
 
 import br.gov.frameworkdemoiselle.annotation.Startup;
 import br.gov.frameworkdemoiselle.message.MessageContext;
-import br.gov.frameworkdemoiselle.spatial.component.kml.KMLBuilder;
-import br.gov.frameworkdemoiselle.spatial.sample.commom.domain.Contact;
-import br.gov.frameworkdemoiselle.spatial.sample.commom.message.InfoMessages;
-import br.gov.frameworkdemoiselle.spatial.sample.commom.persistence.ContactDAO;
+import br.gov.frameworkdemoiselle.spatial.sample.contactlist.domain.Contact;
+import br.gov.frameworkdemoiselle.spatial.sample.contactlist.message.InfoMessages;
+import br.gov.frameworkdemoiselle.spatial.sample.contactlist.persistence.ContactDAO;
 import br.gov.frameworkdemoiselle.template.DelegateCrud;
 import br.gov.frameworkdemoiselle.transaction.Transactional;
 

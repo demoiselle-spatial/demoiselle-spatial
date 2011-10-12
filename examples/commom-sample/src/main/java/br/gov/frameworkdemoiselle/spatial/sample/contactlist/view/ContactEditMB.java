@@ -1,10 +1,10 @@
-package br.gov.frameworkdemoiselle.spatial.sample.commom.view;
+package br.gov.frameworkdemoiselle.spatial.sample.contactlist.view;
 
 import javax.inject.Inject;
 
 import br.gov.frameworkdemoiselle.annotation.PreviousView;
-import br.gov.frameworkdemoiselle.spatial.sample.commom.business.ContactBC;
-import br.gov.frameworkdemoiselle.spatial.sample.commom.domain.Contact;
+import br.gov.frameworkdemoiselle.spatial.sample.contactlist.business.ContactBC;
+import br.gov.frameworkdemoiselle.spatial.sample.contactlist.domain.Contact;
 import br.gov.frameworkdemoiselle.stereotype.ViewController;
 import br.gov.frameworkdemoiselle.template.AbstractEditPageBean;
 import br.gov.frameworkdemoiselle.transaction.Transactional;

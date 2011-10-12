@@ -8,8 +8,8 @@
 		<non-jta-data-source>java:/DefaultDS</non-jta-data-source>
 		
 		
-		<class>br.gov.frameworkdemoiselle.spatial.sample.commom.domain.Contact</class>
-		<class>br.gov.frameworkdemoiselle.spatial.sample.commom.domain.Address</class>
+		<class>br.gov.frameworkdemoiselle.spatial.sample.contactlist.domain.Contact</class>
+		<class>br.gov.frameworkdemoiselle.spatial.sample.contactlist.domain.Address</class>
 
 		<properties>
 			<property name="hibernate.show_sql" value="true" />

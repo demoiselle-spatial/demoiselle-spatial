@@ -1,4 +1,4 @@
-package br.gov.frameworkdemoiselle.spatial.sample.commom.domain;
+package br.gov.frameworkdemoiselle.spatial.sample.contactlist.domain;
 
 import java.io.Serializable;
 

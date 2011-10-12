@@ -126,6 +126,13 @@
 			</exclusions>
 		</dependency>
 
+		<dependency>
+			<groupId>
+				br.gov.frameworkdemoiselle.spatial.component
+			</groupId>
+			<artifactId>georest</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 
 	<repositories>
