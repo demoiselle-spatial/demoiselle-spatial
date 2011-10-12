@@ -1,33 +1,29 @@
-package br.gov.frameworkdemoiselle.spatial.component.kml.impl.test;
+package br.gov.frameworkdemoiselle.spatial.component.shapefile.dados;
 
-import br.gov.frameworkdemoiselle.spatial.component.feature.annotation.FeatureAttributeExcluded;
-import br.gov.frameworkdemoiselle.spatial.component.feature.annotation.FeatureName;
 
-import com.vividsolutions.jts.geom.Polygon;
+import com.vividsolutions.jts.geom.Point;
 
-public class BeanSamplePolygon extends ParentBean{
+public class BeanSamplePoint extends ParentBean{
 
-	@FeatureName(compositeName="O dado é: $")
 	private String name;
 	
-	@FeatureAttributeExcluded
 	private Integer classification;
 	
 	private Double height;
 	
-	private Polygon polygon;
+	private Point point;
 	
 	private ParentBean anotherBean;
 
 	
 	
-	public BeanSamplePolygon(String name, Integer classification, Double height,
-			Polygon polygon,ParentBean anotherBean) {
+	public BeanSamplePoint(String name, Integer classification, Double height,
+			Point point,ParentBean anotherBean) {
 		super(1l);
 		this.name = name;
 		this.classification = classification;
 		this.height = height;
-		this.polygon = polygon;
+		this.point = point;
 		this.anotherBean = anotherBean;
 	}
 
@@ -54,13 +50,13 @@ public class BeanSamplePolygon extends ParentBean{
 	public void setHeight(Double height) {
 		this.height = height;
 	}
-	
-	public Polygon getPolygon() {
-		return polygon;
+
+	public Point getPoint() {
+		return point;
 	}
 
-	public void setPolygon(Polygon polygon) {
-		this.polygon = polygon;
+	public void setPoint(Point point) {
+		this.point = point;
 	}
 
 	public ParentBean getAnotherBean() {

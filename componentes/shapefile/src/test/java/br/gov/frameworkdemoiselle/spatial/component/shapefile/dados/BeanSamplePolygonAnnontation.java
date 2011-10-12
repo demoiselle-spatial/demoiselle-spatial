@@ -1,16 +1,15 @@
-package br.gov.frameworkdemoiselle.spatial.component.kml.impl.test;
+package br.gov.frameworkdemoiselle.spatial.component.shapefile.dados;
 
-import br.gov.frameworkdemoiselle.spatial.component.feature.annotation.FeatureAttributeExcluded;
 import br.gov.frameworkdemoiselle.spatial.component.feature.annotation.FeatureName;
 
 import com.vividsolutions.jts.geom.Polygon;
 
-public class BeanSamplePolygon extends ParentBean{
+public class BeanSamplePolygonAnnontation extends ParentBean{
 
-	@FeatureName(compositeName="O dado é: $")
+	
 	private String name;
 	
-	@FeatureAttributeExcluded
+	@FeatureName
 	private Integer classification;
 	
 	private Double height;
@@ -21,7 +20,7 @@ public class BeanSamplePolygon extends ParentBean{
 
 	
 	
-	public BeanSamplePolygon(String name, Integer classification, Double height,
+	public BeanSamplePolygonAnnontation(String name, Integer classification, Double height,
 			Polygon polygon,ParentBean anotherBean) {
 		super(1l);
 		this.name = name;
@@ -54,7 +53,9 @@ public class BeanSamplePolygon extends ParentBean{
 	public void setHeight(Double height) {
 		this.height = height;
 	}
+
 	
+
 	public Polygon getPolygon() {
 		return polygon;
 	}

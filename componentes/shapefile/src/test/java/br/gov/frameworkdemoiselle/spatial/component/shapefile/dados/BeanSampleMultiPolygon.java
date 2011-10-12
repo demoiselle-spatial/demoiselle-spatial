@@ -1,33 +1,29 @@
-package br.gov.frameworkdemoiselle.spatial.component.kml.impl.test;
+package br.gov.frameworkdemoiselle.spatial.component.shapefile.dados;
 
-import br.gov.frameworkdemoiselle.spatial.component.feature.annotation.FeatureAttributeExcluded;
-import br.gov.frameworkdemoiselle.spatial.component.feature.annotation.FeatureName;
 
-import com.vividsolutions.jts.geom.Polygon;
+import com.vividsolutions.jts.geom.MultiPolygon;
 
-public class BeanSamplePolygon extends ParentBean{
+public class BeanSampleMultiPolygon extends ParentBean{
 
-	@FeatureName(compositeName="O dado é: $")
 	private String name;
 	
-	@FeatureAttributeExcluded
 	private Integer classification;
 	
 	private Double height;
 	
-	private Polygon polygon;
+	private MultiPolygon multiPolygon;
 	
 	private ParentBean anotherBean;
 
 	
 	
-	public BeanSamplePolygon(String name, Integer classification, Double height,
-			Polygon polygon,ParentBean anotherBean) {
+	public BeanSampleMultiPolygon(String name, Integer classification, Double height,
+			MultiPolygon multiPolygon,ParentBean anotherBean) {
 		super(1l);
 		this.name = name;
 		this.classification = classification;
 		this.height = height;
-		this.polygon = polygon;
+		this.multiPolygon = multiPolygon;
 		this.anotherBean = anotherBean;
 	}
 
@@ -54,13 +50,13 @@ public class BeanSamplePolygon extends ParentBean{
 	public void setHeight(Double height) {
 		this.height = height;
 	}
-	
-	public Polygon getPolygon() {
-		return polygon;
+
+	public MultiPolygon getMultiPolygon() {
+		return multiPolygon;
 	}
 
-	public void setPolygon(Polygon polygon) {
-		this.polygon = polygon;
+	public void setMultiPolygon(MultiPolygon multiPolygon) {
+		this.multiPolygon = multiPolygon;
 	}
 
 	public ParentBean getAnotherBean() {

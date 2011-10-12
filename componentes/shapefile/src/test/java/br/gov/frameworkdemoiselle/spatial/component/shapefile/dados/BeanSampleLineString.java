@@ -1,34 +1,36 @@
-package br.gov.frameworkdemoiselle.spatial.component.kml.impl.test;
+package br.gov.frameworkdemoiselle.spatial.component.shapefile.dados;
 
-import br.gov.frameworkdemoiselle.spatial.component.feature.annotation.FeatureAttributeExcluded;
 import br.gov.frameworkdemoiselle.spatial.component.feature.annotation.FeatureName;
 
-import com.vividsolutions.jts.geom.Polygon;
+import com.vividsolutions.jts.geom.LineString;
 
-public class BeanSamplePolygon extends ParentBean{
+public class BeanSampleLineString extends ParentBean{
 
-	@FeatureName(compositeName="O dado é: $")
+	@FeatureName
 	private String name;
 	
-	@FeatureAttributeExcluded
 	private Integer classification;
 	
 	private Double height;
 	
-	private Polygon polygon;
+	private LineString line;
 	
 	private ParentBean anotherBean;
 
 	
 	
-	public BeanSamplePolygon(String name, Integer classification, Double height,
-			Polygon polygon,ParentBean anotherBean) {
+	public BeanSampleLineString(String name, Integer classification, Double height,
+			LineString line,ParentBean anotherBean) {
 		super(1l);
 		this.name = name;
 		this.classification = classification;
 		this.height = height;
-		this.polygon = polygon;
+		this.line = line;
 		this.anotherBean = anotherBean;
+	}
+	
+	public BeanSampleLineString() {
+		super(1l);
 	}
 
 	public String getName() {
@@ -54,13 +56,13 @@ public class BeanSamplePolygon extends ParentBean{
 	public void setHeight(Double height) {
 		this.height = height;
 	}
-	
-	public Polygon getPolygon() {
-		return polygon;
+
+	public LineString getLine() {
+		return line;
 	}
 
-	public void setPolygon(Polygon polygon) {
-		this.polygon = polygon;
+	public void setLine(LineString line) {
+		this.line = line;
 	}
 
 	public ParentBean getAnotherBean() {

@@ -1,4 +1,4 @@
-package br.gov.frameworkdemoiselle.spatial.component.kml.impl.test;
+package br.gov.frameworkdemoiselle.spatial.component.shapefile.dados;
 
 import br.gov.frameworkdemoiselle.spatial.component.feature.annotation.FeatureAttributeExcluded;
 import br.gov.frameworkdemoiselle.spatial.component.feature.annotation.FeatureName;
