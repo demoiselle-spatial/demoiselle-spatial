@@ -20,10 +20,6 @@ public class ContactBC extends DelegateCrud<Contact, Long, ContactDAO> {
 	@Inject
     private MessageContext messageContext;
 	
-//	@Inject
-//	private ReverseGeocoding reverseGeocoding;
-
-
 
 	@Override
 	public void delete(Long id) {

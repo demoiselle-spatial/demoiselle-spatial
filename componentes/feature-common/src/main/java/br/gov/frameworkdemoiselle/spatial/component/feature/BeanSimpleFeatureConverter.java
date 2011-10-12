@@ -2,6 +2,7 @@ package br.gov.frameworkdemoiselle.spatial.component.feature;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -28,11 +29,11 @@ import br.gov.frameworkdemoiselle.spatial.component.feature.util.BeanHelper;
 public class BeanSimpleFeatureConverter {
 
 	
-	public static List<SimpleFeature> beanListToSimpleFeatureList(List<Object> beanList)
+	public static <T> List<SimpleFeature> beanListToSimpleFeatureList(Collection<T> beanList)
 	{
 		List<SimpleFeature> retorno = null;
 		
-		if(beanList != null && !!beanList.isEmpty())
+		if(beanList != null && !beanList.isEmpty())
 			retorno = new ArrayList<SimpleFeature>();
 		else
 			return null;
