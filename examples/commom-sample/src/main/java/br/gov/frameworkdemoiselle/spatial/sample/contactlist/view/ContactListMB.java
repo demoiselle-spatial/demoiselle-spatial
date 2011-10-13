@@ -1,6 +1,5 @@
 package br.gov.frameworkdemoiselle.spatial.sample.contactlist.view;
 
-import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -14,11 +13,11 @@ import org.primefaces.model.StreamedContent;
 
 import br.gov.frameworkdemoiselle.annotation.NextView;
 import br.gov.frameworkdemoiselle.annotation.PreviousView;
-import br.gov.frameworkdemoiselle.message.MessageContext;
 import br.gov.frameworkdemoiselle.spatial.component.kml.KMLBuilder;
+import br.gov.frameworkdemoiselle.spatial.component.shapefile.ShapefileWriter;
+import br.gov.frameworkdemoiselle.spatial.component.shapefile.exception.ShapefileWriterException;
 import br.gov.frameworkdemoiselle.spatial.sample.contactlist.business.ContactBC;
 import br.gov.frameworkdemoiselle.spatial.sample.contactlist.domain.Contact;
-import br.gov.frameworkdemoiselle.spatial.sample.contactlist.message.InfoMessages;
 import br.gov.frameworkdemoiselle.stereotype.ViewController;
 import br.gov.frameworkdemoiselle.template.AbstractListPageBean;
 import br.gov.frameworkdemoiselle.transaction.Transactional;
@@ -37,6 +36,9 @@ public class ContactListMB extends AbstractListPageBean<Contact, Long> {
 	
 	@Inject
 	private KMLBuilder builder;
+	
+	@Inject
+	private ShapefileWriter shapefileWriter;
 	
 	@Override
 	protected List<Contact> handleResultList() {
@@ -94,9 +96,26 @@ public class ContactListMB extends AbstractListPageBean<Contact, Long> {
 				iter.remove();
 			}
 		}
-
-		return new DefaultStreamedContent(new BufferedInputStream(builder.buildKmlAsFile(contacts)), "application/vnd.google-earth.kml+xml",
+		return new DefaultStreamedContent(builder.buildKmlAsFile(contacts), "application/vnd.google-earth.kml+xml",
                 "export.kml");
+	}
+	
+	public StreamedContent getShapefile() throws IOException, ShapefileWriterException
+	{		
+		boolean selected =false;
+		List<Contact> contacts = new ArrayList<Contact>();
+
+		for (Iterator<Long> iter = getSelection().keySet().iterator(); iter.hasNext();) {
+			Long id = iter.next();
+			selected = getSelection().get(id);
+
+			if (selected) {
+				contacts.add(bc.load(id));
+				iter.remove();
+			}
+		}
+		return new DefaultStreamedContent(shapefileWriter.writeBeanShapefileToInputStream(contacts), "application/zip","shapefile.zip");
+
 	}
 
 }

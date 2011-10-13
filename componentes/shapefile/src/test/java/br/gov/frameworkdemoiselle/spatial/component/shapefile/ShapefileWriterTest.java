@@ -2,6 +2,8 @@ package br.gov.frameworkdemoiselle.spatial.component.shapefile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -46,57 +48,57 @@ public class ShapefileWriterTest {
 			
 	}
 	
-	//@Test
+	@Test
 	public void testPolygon1() throws ParseException, ShapefileWriterException
 	{
 
 		BeanSamplePolygon bean = new BeanSamplePolygon("Client 1", 1, 1.8, polygon1, new ParentBean(1l));	
 		SimpleFeature feature = BeanSimpleFeatureConverter.beanToSimpleFeature(bean);
-		File zip = shapeWriter.writeShapefile(feature);
+		File zip = shapeWriter.writeSimpleFeatureShapefile(addToList(feature));
 		
 		//System.out.println(zip.getAbsolutePath());
 	}
 	
-	//@Test
+	@Test
 	public void testPolygon2() throws ParseException, ShapefileWriterException
 	{
 
 		BeanSamplePolygon bean = new BeanSamplePolygon("Client 1", 1, 1.8, polygon2, new ParentBean(1l));	
 		SimpleFeature feature = BeanSimpleFeatureConverter.beanToSimpleFeature(bean);
-		File zip = shapeWriter.writeShapefile(feature);
+		File zip = shapeWriter.writeSimpleFeatureShapefile(addToList(feature));
 		
 		//System.out.println(zip.getAbsolutePath());
 	}
 	
-	//@Test
+	@Test
 	public void testPoint() throws ParseException, ShapefileWriterException
 	{
 
 		BeanSamplePoint bean = new BeanSamplePoint("Client 1", 1, 1.8, point, new ParentBean(1l));	
 		SimpleFeature feature = BeanSimpleFeatureConverter.beanToSimpleFeature(bean);
-		File zip = shapeWriter.writeShapefile(feature);
+		File zip = shapeWriter.writeSimpleFeatureShapefile(addToList(feature));
 		
 		//System.out.println(zip.getAbsolutePath());
 	}
 	
-	//@Test
+	@Test
 	public void testLineString() throws ParseException, ShapefileWriterException
 	{
 
 		BeanSampleLineString bean = new BeanSampleLineString("Client 1", 1, 1.8, line, new ParentBean(1l));	
 		SimpleFeature feature = BeanSimpleFeatureConverter.beanToSimpleFeature(bean);
-		File zip = shapeWriter.writeShapefile(feature);
+		File zip = shapeWriter.writeSimpleFeatureShapefile(addToList(feature));
 		
 		//System.out.println(zip.getAbsolutePath());
 	}
 	
-	//@Test
+	@Test
 	public void testMultiPolygon() throws ParseException, ShapefileWriterException
 	{
 
 		BeanSampleMultiPolygon bean = new BeanSampleMultiPolygon("Client 1", 1, 1.8, multipolygon, new ParentBean(1l));	
 		SimpleFeature feature = BeanSimpleFeatureConverter.beanToSimpleFeature(bean);
-		File zip = shapeWriter.writeShapefile(feature);
+		File zip = shapeWriter.writeSimpleFeatureShapefile(addToList(feature));
 		
 		//System.out.println(zip.getAbsolutePath());
 	}
@@ -111,8 +113,22 @@ public class ShapefileWriterTest {
 		BeanSamplePolygon bean2 = new BeanSamplePolygon("Client 2", 2, 2.8, polygon2, new ParentBean(2l));	
 		SimpleFeature feature2 = BeanSimpleFeatureConverter.beanToSimpleFeature(bean2);
 		
-		File zip = shapeWriter.writeShapefile(feature,feature2);
+		File zip = shapeWriter.writeSimpleFeatureShapefile(addToList(feature,feature2));
 		
 		//System.out.println(zip.getAbsolutePath());
+	}
+	
+	
+	public List<SimpleFeature> addToList(SimpleFeature... feature)
+	{
+		List<SimpleFeature> retorno = new ArrayList<SimpleFeature>();
+		
+		for (int i = 0; i < feature.length; i++) {
+			retorno.add(feature[i]);
+			
+		}
+		
+		
+		return retorno;
 	}
 }

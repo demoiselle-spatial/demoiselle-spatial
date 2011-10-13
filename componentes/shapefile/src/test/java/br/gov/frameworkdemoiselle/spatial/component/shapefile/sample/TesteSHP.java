@@ -26,9 +26,9 @@ public class TesteSHP {
 			
 			SimpleFeature feature = BeanSimpleFeatureConverter.beanToSimpleFeature(bean);
 			
-			File zip = new ShapefileWriterImpl().writeShapefile(feature);
+			//File zip = new ShapefileWriterImpl().writeSimpleFeatureShapefile(feature);
 			
-			System.out.println(zip.getAbsolutePath());
+			//System.out.println(zip.getAbsolutePath());
 			
 	}
 	

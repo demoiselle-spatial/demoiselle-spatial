@@ -29,7 +29,7 @@ import br.gov.frameworkdemoiselle.spatial.component.feature.util.BeanHelper;
 public class BeanSimpleFeatureConverter {
 
 	
-	public static <T> List<SimpleFeature> beanListToSimpleFeatureList(Collection<T> beanList)
+	public static <T> List<SimpleFeature> beanListToSimpleFeatureList(List<T> beanList)
 	{
 		List<SimpleFeature> retorno = null;
 		
