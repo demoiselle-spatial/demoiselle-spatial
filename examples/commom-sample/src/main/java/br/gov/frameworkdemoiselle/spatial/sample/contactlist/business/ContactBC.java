@@ -1,5 +1,7 @@
 package br.gov.frameworkdemoiselle.spatial.sample.contactlist.business;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import br.gov.frameworkdemoiselle.annotation.Startup;
@@ -10,6 +12,7 @@ import br.gov.frameworkdemoiselle.spatial.sample.contactlist.persistence.Contact
 import br.gov.frameworkdemoiselle.template.DelegateCrud;
 import br.gov.frameworkdemoiselle.transaction.Transactional;
 
+import com.vividsolutions.jts.geom.Envelope;
 import com.vividsolutions.jts.io.ParseException;
 import com.vividsolutions.jts.io.WKTReader;
 
@@ -45,6 +48,11 @@ public class ContactBC extends DelegateCrud<Contact, Long, ContactDAO> {
 		super.update(bean);
 		
 		 messageContext.add(InfoMessages.CONTACT_UPDATE_OK,bean.getName());
+	}
+	
+	public List<Contact> finAllByExtent(Envelope envelope)
+	{
+		return getDelegate().findAllByExtent(envelope);
 	}
 	
 	@Startup

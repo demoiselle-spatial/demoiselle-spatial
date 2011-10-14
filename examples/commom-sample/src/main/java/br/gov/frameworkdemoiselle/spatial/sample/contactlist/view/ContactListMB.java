@@ -13,6 +13,7 @@ import org.primefaces.model.StreamedContent;
 
 import br.gov.frameworkdemoiselle.annotation.NextView;
 import br.gov.frameworkdemoiselle.annotation.PreviousView;
+import br.gov.frameworkdemoiselle.spatial.component.feature.util.EnvelopeWrapper;
 import br.gov.frameworkdemoiselle.spatial.component.kml.KMLBuilder;
 import br.gov.frameworkdemoiselle.spatial.component.shapefile.ShapefileWriter;
 import br.gov.frameworkdemoiselle.spatial.component.shapefile.exception.ShapefileWriterException;
@@ -72,9 +73,11 @@ public class ContactListMB extends AbstractListPageBean<Contact, Long> {
 	 */
 	public String getResultFeatureList() {
 		
-		 List<Contact> beans = this.getResultList();
+		 List<Contact> beans =  bc.finAllByExtent(new EnvelopeWrapper("-74.3923002715439,-11.462958782424522,-65.97160155697127,-6.809676427950414").getEnvelope()); //this.getResultList();
 		 WKTFeaturesCollection<Geometry> wktFeatures = new WKTFeaturesCollection<Geometry>();
 		 
+		//List<Contact> beans = bc.findAll();
+		
 		 for (Contact client : beans) {			 
 			 wktFeatures.addFeature(client.getPoint());	 
 		}

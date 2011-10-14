@@ -106,7 +106,7 @@ public class ShapefileWriterImpl implements ShapefileWriter {
 			//zip = File.createTempFile("demoiselle-spatial", ".zip",new File(demoiselleproperty.temporarySHPFilesFolder));
 			zip = File.createTempFile("demoiselle-spatial", ".zip");
 			
-			new ZIP().criarZip(zip,shp,dbf,prj,shx,fix,qix);
+			new ZipFileUtil().inflateZip(zip,shp,dbf,prj,shx,fix,qix);
 			
 			dbf.delete();
 			prj.delete();

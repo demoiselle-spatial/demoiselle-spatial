@@ -16,6 +16,7 @@ import br.gov.frameworkdemoiselle.spatial.component.shapefile.dados.BeanSampleMu
 import br.gov.frameworkdemoiselle.spatial.component.shapefile.dados.BeanSamplePoint;
 import br.gov.frameworkdemoiselle.spatial.component.shapefile.dados.BeanSamplePolygon;
 import br.gov.frameworkdemoiselle.spatial.component.shapefile.dados.ParentBean;
+import br.gov.frameworkdemoiselle.spatial.component.shapefile.exception.ShapefileReaderException;
 import br.gov.frameworkdemoiselle.spatial.component.shapefile.exception.ShapefileWriterException;
 
 import com.vividsolutions.jts.geom.LineString;
@@ -33,6 +34,7 @@ public class ShapefileWriterTest {
 	Point point;
 	LineString line;
 	ShapefileWriter shapeWriter;
+	ShapefileReader shapeReader;
 	
 	@Before
 	public void init() throws ParseException, IOException
@@ -44,67 +46,68 @@ public class ShapefileWriterTest {
 		multipolygon = (MultiPolygon) new WKTReader().read("MULTIPOLYGON(((-38.5330132185224 -13.0101408651456,-38.5330453728615 -13.0101486973816,-38.5331632721047 -13.0101252006727,-38.5332275807828 -13.0101800263234,-38.5332007855002 -13.0102975098198,-38.5330078594659 -13.0104097717754,-38.5329783846551 -13.0104411006842,-38.5329274736182 -13.0105246444216,-38.532914075977 -13.0105037584899,-38.5328176129598 -13.0104280469727,-38.5328256515445 -13.0104202147455,-38.5326863160753 -13.0103653891479,-38.5326755979623 -13.0103601676617,-38.5326755979623 -13.0103523354324,-38.5326863160753 -13.010347113946,-38.53269435466 -13.010347113946,-38.5327399066404 -13.0103105635382,-38.5327693814512 -13.0102740131249,-38.5328122539033 -13.0102244089841,-38.5328363696576 -13.0101617511079,-38.5328631649401 -13.0101121469446,-38.5329301531465 -13.0101121469446,-38.5329515893725 -13.0101017039616,-38.5329891027681 -13.0100990932157,-38.5329891027681 -13.0101304221638,-38.5330400138049 -13.010143475891,-38.5330132185224 -13.0101408651456)),((-38.5328370395396 -13.0100697223234,-38.5328470877706 -13.0100755965021,-38.5328263214266 -13.0100951770969,-38.5328082346109 -13.0100821233672,-38.5328310106011 -13.0100612373982,-38.5328370395396 -13.0100697223234)))");
 		
 		shapeWriter = new ShapefileWriterImpl();
-		
+		shapeReader = new ShapefileReaderImpl();
 			
 	}
 	
 	@Test
-	public void testPolygon1() throws ParseException, ShapefileWriterException
+	public void testPolygon1() throws ParseException, ShapefileWriterException, ShapefileReaderException
 	{
 
 		BeanSamplePolygon bean = new BeanSamplePolygon("Client 1", 1, 1.8, polygon1, new ParentBean(1l));	
 		SimpleFeature feature = BeanSimpleFeatureConverter.beanToSimpleFeature(bean);
 		File zip = shapeWriter.writeSimpleFeatureShapefile(addToList(feature));
 		
-		//System.out.println(zip.getAbsolutePath());
+		shapeReader.readShapefile(zip);
+
 	}
 	
 	@Test
-	public void testPolygon2() throws ParseException, ShapefileWriterException
+	public void testPolygon2() throws ParseException, ShapefileWriterException, ShapefileReaderException
 	{
 
 		BeanSamplePolygon bean = new BeanSamplePolygon("Client 1", 1, 1.8, polygon2, new ParentBean(1l));	
 		SimpleFeature feature = BeanSimpleFeatureConverter.beanToSimpleFeature(bean);
 		File zip = shapeWriter.writeSimpleFeatureShapefile(addToList(feature));
 		
-		//System.out.println(zip.getAbsolutePath());
+		shapeReader.readShapefile(zip);
 	}
 	
 	@Test
-	public void testPoint() throws ParseException, ShapefileWriterException
+	public void testPoint() throws ParseException, ShapefileWriterException, ShapefileReaderException
 	{
 
 		BeanSamplePoint bean = new BeanSamplePoint("Client 1", 1, 1.8, point, new ParentBean(1l));	
 		SimpleFeature feature = BeanSimpleFeatureConverter.beanToSimpleFeature(bean);
 		File zip = shapeWriter.writeSimpleFeatureShapefile(addToList(feature));
 		
-		//System.out.println(zip.getAbsolutePath());
+		shapeReader.readShapefile(zip);
 	}
 	
 	@Test
-	public void testLineString() throws ParseException, ShapefileWriterException
+	public void testLineString() throws ParseException, ShapefileWriterException, ShapefileReaderException
 	{
 
 		BeanSampleLineString bean = new BeanSampleLineString("Client 1", 1, 1.8, line, new ParentBean(1l));	
 		SimpleFeature feature = BeanSimpleFeatureConverter.beanToSimpleFeature(bean);
 		File zip = shapeWriter.writeSimpleFeatureShapefile(addToList(feature));
 		
-		//System.out.println(zip.getAbsolutePath());
+		shapeReader.readShapefile(zip);
 	}
 	
 	@Test
-	public void testMultiPolygon() throws ParseException, ShapefileWriterException
+	public void testMultiPolygon() throws ParseException, ShapefileWriterException, ShapefileReaderException
 	{
 
 		BeanSampleMultiPolygon bean = new BeanSampleMultiPolygon("Client 1", 1, 1.8, multipolygon, new ParentBean(1l));	
 		SimpleFeature feature = BeanSimpleFeatureConverter.beanToSimpleFeature(bean);
 		File zip = shapeWriter.writeSimpleFeatureShapefile(addToList(feature));
 		
-		//System.out.println(zip.getAbsolutePath());
+		shapeReader.readShapefile(zip);
 	}
 	
 	@Test
-	public void testListMultiPolygon() throws ParseException, ShapefileWriterException
+	public void testListMultiPolygon() throws ParseException, ShapefileWriterException, ShapefileReaderException
 	{
 
 		BeanSamplePolygon bean = new BeanSamplePolygon("Client 1", 1, 1.8, polygon1, new ParentBean(1l));	
@@ -115,7 +118,7 @@ public class ShapefileWriterTest {
 		
 		File zip = shapeWriter.writeSimpleFeatureShapefile(addToList(feature,feature2));
 		
-		//System.out.println(zip.getAbsolutePath());
+		shapeReader.readShapefile(zip);
 	}
 	
 	

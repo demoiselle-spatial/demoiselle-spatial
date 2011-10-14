@@ -19,12 +19,12 @@ import java.util.zip.ZipException;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
-public class ZIP {
+public class ZipFileUtil {
 	
 	
 	private static final int TAMANHO_BUFFER = 2048; // 2 Kb
 
-	public Map<String,InputStream> extrairZip(File arquivoZip) throws ZipException {
+	public Map<String,InputStream> deflateZip(File arquivoZip) throws ZipException {
 			
 		FileInputStream fis;
 		try {
@@ -33,18 +33,13 @@ public class ZIP {
 			throw new ZipException(e.getMessage());
 		}
 		
-		return extrairZip(fis);
+		return deflateZip(fis);
 	}
 	
 	/**
-	 * Efetua a descompactação de um arquivo zip e retorna um hash contendo os streams e nome de cada arquivo 
-	 * presente no zip.
-	 * @param arquivoZip
-	 * @return
-	 * @throws ZipException
-	 * @throws IOException
+	 * Deflate a zip file by InputStream and return a Map<FileName,InputStream>
 	 */
-	public Map<String,InputStream> extrairZip( InputStream arquivoZip) throws ZipException {
+	public Map<String,InputStream> deflateZip(InputStream arquivoZip) throws ZipException {
 		ZipInputStream zis = new ZipInputStream(arquivoZip);
 		Map<String,InputStream> retorno = null;
 		
@@ -68,7 +63,7 @@ public class ZIP {
 
 
 	@SuppressWarnings("unchecked")
-	public List criarZip( OutputStream os, File... arquivos ) throws ZipException {
+	public List inflateZip(OutputStream os, File... arquivos) throws ZipException {
 		if( arquivos == null || arquivos.length < 1 ) {
 			throw new ZipException();
 		}
@@ -78,7 +73,7 @@ public class ZIP {
 			zos = new ZipOutputStream( os );
 			for( int i=0; i<arquivos.length; i++ ) {
 				String caminhoInicial = arquivos[i].getParent();
-				List novasEntradas = adicionarArquivoNoZip( zos, arquivos[i], caminhoInicial );
+				List novasEntradas = addFileToZip( zos, arquivos[i], caminhoInicial );
 				if( novasEntradas != null ) {
 					listaEntradasZip.addAll( novasEntradas );
 				}
@@ -100,7 +95,7 @@ public class ZIP {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List criarZip( File zip, File... arquivos ) throws ZipException {
+	public List inflateZip( File zip, File... arquivos ) throws ZipException {
 		if( arquivos == null || arquivos.length < 1 ) {
 			throw new ZipException();
 		}
@@ -112,7 +107,7 @@ public class ZIP {
 			throw new ZipException(e.getMessage());
 		}
 		
-		return this.criarZip(os, arquivos);
+		return this.inflateZip(os, arquivos);
 	}
 	/**
 	 * Adiciona Arquivos no ZIP
@@ -123,7 +118,7 @@ public class ZIP {
 	 * @throws IOException
 	 */
 	@SuppressWarnings("unchecked")
-	private List adicionarArquivoNoZip( ZipOutputStream zos, File arquivo, String caminhoInicial ) throws ZipException {
+	private List addFileToZip( ZipOutputStream zos, File arquivo, String caminhoInicial ) throws ZipException {
 		List listaEntradasZip = new ArrayList();
 		FileInputStream fis = null;
 		BufferedInputStream bis = null;
@@ -134,7 +129,7 @@ public class ZIP {
 				//recursivamente adiciona os arquivos dos diretórios abaixo
 				File[] arquivos = arquivo.listFiles();
 				for( int i=0; i<arquivos.length; i++ ) {
-					List novasEntradas = adicionarArquivoNoZip( zos, arquivos[i], caminhoInicial );
+					List novasEntradas = addFileToZip( zos, arquivos[i], caminhoInicial );
 					if( novasEntradas != null ) {
 						listaEntradasZip.addAll( novasEntradas );
 					}
@@ -144,8 +139,6 @@ public class ZIP {
 			String caminhoEntradaZip = null;
 			int idx = arquivo.getAbsolutePath().indexOf(caminhoInicial);
 			if( idx >= 0 ) {
-				//calcula os diretórios a partir do diretório inicial
-				//isso serve para não colocar uma entrada com o caminho completo
 				caminhoEntradaZip = arquivo.getAbsolutePath().substring( idx+caminhoInicial.length()+1 );
 			}
 			ZipEntry entrada = new ZipEntry( caminhoEntradaZip );

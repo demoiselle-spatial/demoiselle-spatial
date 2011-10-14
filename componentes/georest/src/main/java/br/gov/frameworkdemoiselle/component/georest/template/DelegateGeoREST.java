@@ -18,7 +18,7 @@ import br.gov.frameworkdemoiselle.util.Beans;
 import br.gov.frameworkdemoiselle.util.Reflections;
 
 @Produces("application/json")
-public class DelegateGeoREST<T, I, C extends Crud<T, I>> implements GeoRESTCRUD<I> {
+public class DelegateGeoRest<T, I, C extends Crud<T, I>> implements GeoRESTCrud<I> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -51,9 +51,22 @@ public class DelegateGeoREST<T, I, C extends Crud<T, I>> implements GeoRESTCRUD<
 	@Override
 	@Path("/list")
 	@GET
+	//@QueryParam("bbox")EnvelopeWrapper bbox
 	public GeoJSONFeatureCollection list() {
 		 
-	   	List<T> listT = getDelegate().findAll();
+		//Query query = null;
+		List<T> listT = null;
+		
+//		if(bbox != null)
+//		{
+//			query = entityManager.createQuery("from " + this.delegateClass.getSimpleName() + " c where within(c, :filter) = true");
+//			
+//			new HibernateSpatialQuery().setSpatialParameter(query, "filter", bbox.getEnvelope());
+//			
+//			listT = query.getResultList();
+//		}
+//		else
+			listT = getDelegate().findAll();
 		
 	   	if(listT == null)
 	   		return null;
@@ -84,6 +97,6 @@ public class DelegateGeoREST<T, I, C extends Crud<T, I>> implements GeoRESTCRUD<
 		throw new GeoRESTCRUDException("Method not implemented");
 	}
 
-
+	
 	
 }

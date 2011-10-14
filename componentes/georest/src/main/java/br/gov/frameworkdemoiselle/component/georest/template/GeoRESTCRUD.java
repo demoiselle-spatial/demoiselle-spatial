@@ -5,7 +5,7 @@ import java.io.Serializable;
 import br.gov.frameworkdemoiselle.component.georest.model.GeoJSONFeature;
 import br.gov.frameworkdemoiselle.component.georest.model.GeoJSONFeatureCollection;
 
-public interface GeoRESTCRUD<I> extends Serializable {
+public interface GeoRESTCrud<I> extends Serializable {
 
 	void delete(I id);
 

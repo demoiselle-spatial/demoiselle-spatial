@@ -30,13 +30,19 @@
 #toolbar_group .olControlZoomOutItemInactive { background-image: url("#{resource['images:zoomout.png']}"); }
 #toolbar_group .olControlMouseDefaultsItemInactive { background-image: url("#{resource['images:pan_off.png']}"); }
 #toolbar_group .olControlMouseDefaultsItemActive { background-image: url("#{resource['images:pan_on.png']}"); }
-#toolbar_group .olControlZoomToMaxExtentItemInactive { background-image: url("#{resource['images:icon_full_map.gif']}"); }
-#toolbar_group .olControlZoomToMaxExtentItemActive { background-image: url("#{resource['images:icon_full_map.gif']}"); }
+#toolbar_group .olControlZoomToMaxExtentItemInactive { background-image: url("#{resource['images:reset2.gif']}"); }
+#toolbar_group .olControlZoomToMaxExtentItemActive { background-image: url("#{resource['images:reset2.gif']}"); }
 #toolbar_group .olControlDrawFeatureItemInactive { background-image: url("#{resource['images:draw_point_off.png']}"); }
 #toolbar_group .olControlDrawFeatureItemActive { background-image: url("#{resource['images:draw_point_on.png']}"); }
 
 .ui-state-default .icon-kml {
-width: 20px;
-height: 20px;
-background-image: url("#{resource['images:kml.png']}"); !important
+width: 30px;
+height: 30px;
+background-image: url("#{resource['images:kml2.png']}"); !important
+}
+
+.ui-state-default .icon-shapefile {
+width: 30px;
+height: 30px;
+background-image: url("#{resource['images:shp.png']}"); !important
 }
