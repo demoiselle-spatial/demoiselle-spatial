@@ -697,8 +697,7 @@ public class JPASpatialDAO<T, I> extends JPACrud<T, I> implements SpatialDAO<T, 
 			filter.setSRID(geoBeanSRID);
 	}
 	
-	@Startup(priority=Startup.MAX_PRIORITY)
-	@Transactional
+
 	public void createGeometryColumns() throws IOException, ClassNotFoundException {
 		
 		final Map<String, String> map = this.getAddGeometryColumnInfo();

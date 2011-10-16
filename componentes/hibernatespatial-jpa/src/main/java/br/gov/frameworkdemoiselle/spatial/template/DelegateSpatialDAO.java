@@ -1,5 +1,6 @@
 package br.gov.frameworkdemoiselle.spatial.template;
 
+import java.io.IOException;
 import java.util.List;
 
 import br.gov.frameworkdemoiselle.spatial.query.SpatialQueryArgument;
@@ -228,6 +229,14 @@ public class DelegateSpatialDAO<T, I, C extends JPASpatialDAO<T, I>> extends Del
 	@Override
 	public Envelope calculateExtent(SpatialQueryArgument spatialArgument) {
 		return getDelegate().calculateExtent(spatialArgument);
+	}
+
+	@Override
+	public void createGeometryColumns() throws IOException,
+			ClassNotFoundException {
+		
+		getDelegate().createGeometryColumns();
+		
 	}
 
 }

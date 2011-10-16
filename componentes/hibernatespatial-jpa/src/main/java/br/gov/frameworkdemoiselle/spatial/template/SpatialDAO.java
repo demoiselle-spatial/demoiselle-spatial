@@ -1,5 +1,6 @@
 package br.gov.frameworkdemoiselle.spatial.template;
 
+import java.io.IOException;
 import java.util.List;
 
 import br.gov.frameworkdemoiselle.spatial.query.SpatialQueryArgument;
@@ -88,6 +89,8 @@ public interface SpatialDAO<T,I> {
 	Envelope calculateExtent();
 	
 	Envelope calculateExtent(SpatialQueryArgument spatialArgument);
+	
+	public void createGeometryColumns() throws IOException, ClassNotFoundException;
 	
 	
 }

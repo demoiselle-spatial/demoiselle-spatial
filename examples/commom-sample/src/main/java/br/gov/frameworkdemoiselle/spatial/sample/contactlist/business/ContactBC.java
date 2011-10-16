@@ -1,5 +1,6 @@
 package br.gov.frameworkdemoiselle.spatial.sample.contactlist.business;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -58,9 +59,12 @@ public class ContactBC extends DelegateSpatialDAO<Contact, Long, ContactDAO> {
 	
 	@Startup
 	@Transactional
-	public void load() {
+	public void load() throws IOException, ClassNotFoundException {
 		if (findAll().isEmpty()) {
 			try {
+				
+				this.createGeometryColumns();
+				
 				Geometry point = new WKTReader().read("POINT(-38.48760780000001 -12.9710208)");
 				point.setSRID(4326);
 				insert(new Contact("Rafael Soto", "2021-9833", "rafael.soto@serpro.gov.br", point));
