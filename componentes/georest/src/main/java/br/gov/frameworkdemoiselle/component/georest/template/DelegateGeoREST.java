@@ -18,7 +18,7 @@ import br.gov.frameworkdemoiselle.util.Beans;
 import br.gov.frameworkdemoiselle.util.Reflections;
 
 @Produces("application/json")
-public class DelegateGeoRest<T, I, C extends JPASpatialDAO<T, I>> implements GeoRESTCrud<I> {
+public class DelegateGeoREST<T, I, C extends JPASpatialDAO<T, I>> implements GeoRESTCRUD<I> {
 
 	private static final long serialVersionUID = 1L;
 
