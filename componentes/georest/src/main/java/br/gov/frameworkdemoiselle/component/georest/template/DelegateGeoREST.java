@@ -13,12 +13,12 @@ import br.gov.frameworkdemoiselle.component.georest.geojson.GeoJSONBuilderImpl;
 import br.gov.frameworkdemoiselle.component.georest.model.GeoJSONFeature;
 import br.gov.frameworkdemoiselle.component.georest.model.GeoJSONFeatureCollection;
 import br.gov.frameworkdemoiselle.spatial.component.feature.BeanSimpleFeatureConverter;
-import br.gov.frameworkdemoiselle.template.Crud;
+import br.gov.frameworkdemoiselle.spatial.template.JPASpatialDAO;
 import br.gov.frameworkdemoiselle.util.Beans;
 import br.gov.frameworkdemoiselle.util.Reflections;
 
 @Produces("application/json")
-public class DelegateGeoRest<T, I, C extends Crud<T, I>> implements GeoRESTCrud<I> {
+public class DelegateGeoRest<T, I, C extends JPASpatialDAO<T, I>> implements GeoRESTCrud<I> {
 
 	private static final long serialVersionUID = 1L;
 
