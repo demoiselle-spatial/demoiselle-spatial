@@ -16,6 +16,7 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import br.gov.frameworkdemoiselle.spatial.component.feature.annotation.FeatureName;
+import br.gov.frameworkdemoiselle.spatial.query.SRID;
 
 import com.vividsolutions.jts.geom.Geometry;
 
@@ -48,6 +49,7 @@ public class Contact implements Serializable {
 	
 	@NotNull
 	@Type(type = "org.hibernatespatial.GeometryUserType")
+	@SRID("4326")
 	@XmlTransient
 	private Geometry point;
 	

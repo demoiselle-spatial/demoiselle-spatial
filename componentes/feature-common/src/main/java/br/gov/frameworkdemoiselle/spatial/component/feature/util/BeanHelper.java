@@ -9,6 +9,8 @@ import jodd.bean.BeanUtil;
 
 import org.apache.commons.beanutils.BeanUtils;
 
+import br.gov.frameworkdemoiselle.spatial.component.feature.exception.FeatureException;
+
 public class BeanHelper {
 
 	
@@ -182,6 +184,8 @@ public class BeanHelper {
 			return findedAnnontation;
 		
 	}
+	
+	
 	
 }
 

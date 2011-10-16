@@ -8,11 +8,12 @@ import org.geotools.geometry.jts.JTS;
 import org.slf4j.Logger;
 
 import br.gov.frameworkdemoiselle.spatial.sample.contactlist.domain.Contact;
-import br.gov.frameworkdemoiselle.template.JPACrud;
+import br.gov.frameworkdemoiselle.spatial.template.JPASpatialDAO;
 
 import com.vividsolutions.jts.geom.Envelope;
+import com.vividsolutions.jts.geom.Geometry;
 
-public class ContactDAO extends JPACrud<Contact, Long> {
+public class ContactDAO extends JPASpatialDAO<Contact, Long> {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -23,7 +24,10 @@ public class ContactDAO extends JPACrud<Contact, Long> {
 	@SuppressWarnings("unchecked")
 	public List<Contact> findAllByExtent(Envelope envelope)
 	{
-		return getEntityManager().createQuery("from Contact c where within(c.point, :filter) = true").setParameter("filter", JTS.toGeometry(envelope)).getResultList(); 
+		Geometry geom = JTS.toGeometry(envelope);
+		geom.setSRID(4326);
+		
+		return getEntityManager().createQuery("from Contact c where within(c.point, :filter) = true").setParameter("filter",geom ).getResultList(); 
 	}
 	
 }

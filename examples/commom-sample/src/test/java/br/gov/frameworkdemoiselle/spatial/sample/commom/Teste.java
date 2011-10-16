@@ -1,17 +1,23 @@
 package br.gov.frameworkdemoiselle.spatial.sample.commom;
 
-import org.geotools.geometry.jts.JTS;
+import java.io.IOException;
+import java.net.URL;
+import java.util.Set;
 
-import com.vividsolutions.jts.geom.Envelope;
-
-import br.gov.frameworkdemoiselle.spatial.component.feature.util.EnvelopeWrapper;
+import org.scannotation.AnnotationDB;
+import org.scannotation.ClasspathUrlFinder;
 
 public class Teste {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		
-		Envelope envelope = new EnvelopeWrapper("-74.3923002715439,-11.462958782424522,-65.97160155697127,-6.809676427950414").getEnvelope();
+		URL[] urls = ClasspathUrlFinder.findResourceBases("META-INF/persistence.xml");
+		AnnotationDB db = new AnnotationDB();
+		db.scanArchives(urls);
+		Set<String> entityClasses = db.getAnnotationIndex().get(javax.persistence.Entity.class.getName());
 		
-		System.out.println(JTS.toGeometry(envelope));
+		for (String string : entityClasses) {
+			System.out.println(entityClasses);
+		}
 	}
 }

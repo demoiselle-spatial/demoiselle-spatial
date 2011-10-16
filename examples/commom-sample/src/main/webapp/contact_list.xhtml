@@ -72,11 +72,8 @@
 					
 						}">	
 	             <m:wmsLayer name="OpenLayers WMS"
-	                         url="http://vmap0.tiles.osgeo.org/wms/vmap0"
-	                         params="{layers:'basic'}" />
-				<m:wmsLayer name="Labels"
-	                         url="http://vmap0.tiles.osgeo.org/wms/vmap0"
-	                         params="{layers: 'clabel,ctylabel,statelabel',transparent:true}" />
+	                         url="http://localhost:8080/geoserver/topp/wms"
+	                         params="{layers:'topp:states'}" />
 	             	<m:layerSwitcherControl />
 	              	<m:navigationControl />
 	                <m:panZoomBarControl />
