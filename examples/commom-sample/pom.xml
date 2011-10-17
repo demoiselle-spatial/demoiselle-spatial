@@ -114,7 +114,7 @@
 				br.gov.frameworkdemoiselle.spatial.component
 			</groupId>
 			<artifactId>shapefile</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>
@@ -139,6 +139,10 @@
 		</repository>
 		
 		<!-- Repositorio de GEO -->
+				<repository>
+			<id>demoiselle.spatial.git.snapshot</id>
+			<url>https://raw.github.com/rafaelsoto/demoiselle-spatial/master/mvn-repo/snapshots</url>
+		</repository>
 				<repository>
 			<id>OSGEO GeoTools repo</id>
 			<url>http://download.osgeo.org/webdav/geotools</url>
