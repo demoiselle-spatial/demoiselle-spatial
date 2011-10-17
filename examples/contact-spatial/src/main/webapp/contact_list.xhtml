@@ -95,8 +95,7 @@
 	                <m:overviewMapControl />
 	                <m:keyboardDefaultsControl />
 	                <m:permalinkControl />	                
-					<m:vectorLayer name="Contacts" value="#{contactListMB.resultFeatureList}" jsVariable="features"/>
-					<m:vectorLayer name="Contects JSON" jsVariable="json_vector"
+					<m:vectorLayer name="Contacts" jsVariable="json_vector"
                                    options="{
                                    strategies: [new OpenLayers.Strategy.Fixed()],
                                    protocol: new OpenLayers.Protocol.HTTP({
@@ -105,15 +104,16 @@
                                    })
                                    }"/>
 					<m:panelControl options="{div:document.getElementById('toolbar_group')}" jsVariable="toolbar">
-						<m:zoomToMaxExtentControl options="{title:'Reset Zoom Map'}"/>
+					<m:zoomToMaxExtentControl options="{title:'Reset Zoom Map'}"/>
 					</m:panelControl>
 					<m:script>toolbar.addControls(new OpenLayers.Control.MouseDefaults({title:'Pan'}));</m:script>
 					<m:script>toolbar.addControls(new OpenLayers.Control.ZoomBox({alwaysZoom:true, title:'Zoom box'}));</m:script>
 					<m:script>toolbar.addControls(new OpenLayers.Control.ZoomIn({title:'Zoom in'}));</m:script>   
 					<m:script>toolbar.addControls(new OpenLayers.Control.ZoomOut({title:'Zoom out'}));</m:script>
 					<m:script>createEvents(json_vector,map)</m:script>
-					<m:script>map.setCenter(new OpenLayers.LonLat(10.2, 48.9), 5);</m:script>
-					<m:script>map.zoomToExtent(features.getDataExtent());</m:script>
+					<m:script>map.zoomToExtent(new OpenLayers.Bounds(
+                      -17979006.856029,-6628394.2026953,21156751.620533,9025909.1879297
+                       ));</m:script>
          		</m:map>
          		</div>
 		</h:form>
