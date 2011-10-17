@@ -39,7 +39,7 @@
 					<artifactId>javassist</artifactId>
 				</exclusion>
 			</exclusions>
-			<scope>provided</scope>
+			<scope>compile</scope>
 		</dependency>
 			<dependency>
 				<groupId>org.hibernate</groupId>
@@ -52,17 +52,6 @@
 			<artifactId>jodd</artifactId>
 			<version>3.2.7</version>
 		</dependency>
-		<dependency>
-    <groupId>net.sf.scannotation</groupId>
-    <artifactId>scannotation</artifactId>
-    <version>1.0.2</version>
-    			<exclusions>
-				<exclusion>
-					<groupId>javassist</groupId>
-					<artifactId>javassist</artifactId>
-				</exclusion>
-			</exclusions>
-	</dependency>
 	</dependencies>
 
 	<repositories>

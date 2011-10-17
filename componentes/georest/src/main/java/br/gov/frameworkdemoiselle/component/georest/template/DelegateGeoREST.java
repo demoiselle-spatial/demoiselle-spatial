@@ -6,6 +6,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 
 import br.gov.frameworkdemoiselle.component.georest.GeoRESTCRUDException;
 import br.gov.frameworkdemoiselle.component.georest.geojson.GeoJSONBuilder;
@@ -13,6 +14,8 @@ import br.gov.frameworkdemoiselle.component.georest.geojson.GeoJSONBuilderImpl;
 import br.gov.frameworkdemoiselle.component.georest.model.GeoJSONFeature;
 import br.gov.frameworkdemoiselle.component.georest.model.GeoJSONFeatureCollection;
 import br.gov.frameworkdemoiselle.spatial.component.feature.BeanSimpleFeatureConverter;
+import br.gov.frameworkdemoiselle.spatial.query.SpatialQueryArgument;
+import br.gov.frameworkdemoiselle.spatial.template.DemoiselleSpatialEnvelope;
 import br.gov.frameworkdemoiselle.spatial.template.JPASpatialDAO;
 import br.gov.frameworkdemoiselle.util.Beans;
 import br.gov.frameworkdemoiselle.util.Reflections;
@@ -51,22 +54,12 @@ public class DelegateGeoREST<T, I, C extends JPASpatialDAO<T, I>> implements Geo
 	@Override
 	@Path("/list")
 	@GET
-	//@QueryParam("bbox")EnvelopeWrapper bbox
-	public GeoJSONFeatureCollection list() {
+	public GeoJSONFeatureCollection list(@QueryParam("bbox")DemoiselleSpatialEnvelope bbox,@QueryParam("SRID")Integer outputSrid) {
 		 
 		//Query query = null;
 		List<T> listT = null;
-		
-//		if(bbox != null)
-//		{
-//			query = entityManager.createQuery("from " + this.delegateClass.getSimpleName() + " c where within(c, :filter) = true");
-//			
-//			new HibernateSpatialQuery().setSpatialParameter(query, "filter", bbox.getEnvelope());
-//			
-//			listT = query.getResultList();
-//		}
-//		else
-			listT = getDelegate().findAll();
+
+		listT = getDelegate().findAll(new SpatialQueryArgument(bbox, outputSrid));
 		
 	   	if(listT == null)
 	   		return null;

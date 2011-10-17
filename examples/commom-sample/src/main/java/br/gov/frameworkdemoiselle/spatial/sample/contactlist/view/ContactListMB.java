@@ -16,8 +16,11 @@ import br.gov.frameworkdemoiselle.annotation.NextView;
 import br.gov.frameworkdemoiselle.annotation.PreviousView;
 import br.gov.frameworkdemoiselle.spatial.component.feature.util.EnvelopeWrapper;
 import br.gov.frameworkdemoiselle.spatial.component.kml.KMLBuilder;
+import br.gov.frameworkdemoiselle.spatial.component.shapefile.ShapefileReader;
 import br.gov.frameworkdemoiselle.spatial.component.shapefile.ShapefileWriter;
 import br.gov.frameworkdemoiselle.spatial.component.shapefile.exception.ShapefileWriterException;
+import br.gov.frameworkdemoiselle.spatial.geocode.Geocoding;
+import br.gov.frameworkdemoiselle.spatial.geocode.ReverseGeocoding;
 import br.gov.frameworkdemoiselle.spatial.query.SpatialQueryArgument;
 import br.gov.frameworkdemoiselle.spatial.sample.contactlist.business.ContactBC;
 import br.gov.frameworkdemoiselle.spatial.sample.contactlist.domain.Contact;
@@ -48,10 +51,13 @@ public class ContactListMB extends AbstractListPageBean<Contact, Long> {
 	@Inject
 	private ShapefileWriter shapefileWriter;
 	
+	@Inject
+	private ShapefileReader shapefileReader;
+	
 	@Override
 	protected List<Contact> handleResultList() {
 		
-		return this.bc.findAll();
+		return bc.findAll(new SpatialQueryArgument(900913));
 	}
 	
 	@Transactional
@@ -79,40 +85,9 @@ public class ContactListMB extends AbstractListPageBean<Contact, Long> {
 	 * @return
 	 * @throws ParseException 
 	 */
-	public String getResultFeatureList() throws ParseException {
+	public String getResultFeatureList() throws ParseException {		
 		
-		Polygon polygon = (Polygon) new WKTReader().read("POLYGON((-38.5293710697436 -13.0056888516009,-38.5288351640926 -13.0065451899837,-38.5284493120239 -13.0065869625121,-38.5285779293801 -13.0057932832693,-38.5287922916405 -13.0057723969391,-38.5291995799353 -13.0056261925788,-38.5293710697436 -13.0056888516009))");
-		
-		DemoiselleSpatialEnvelope extent = new DemoiselleSpatialEnvelope("-8140237.76425813,-2914177.29271033,14871588.2231639,4877301.69475905");
-		extent.setSrid(900913);
-		
-		bc.calculateExtent();
-		
-		bc.calculateExtent(new SpatialQueryArgument(900913));
-		
-		bc.intersects(polygon);
-		
-		bc.intersects(polygon, new SpatialQueryArgument(900913));
-		
-		bc.intersects(polygon, new SpatialQueryArgument(extent, 900913));
-		
-		bc.intersects(polygon, new SpatialQueryArgument(extent, 4326));
-		
-		bc.intersects(polygon, new SpatialQueryArgument(extent.getEnvelope(),900913));
-		
-		bc.verifyContains(polygon);
-		
-		bc.verifyContains(polygon,new SpatialQueryArgument(900913));
-		
-		bc.verifyContains(polygon,new SpatialQueryArgument(extent, 900913));
-		
-		bc.verifyContains(polygon,new SpatialQueryArgument(extent, 4326));
-		
-		bc.verifyContains(polygon,new SpatialQueryArgument(extent.getEnvelope(),900913));
-		
-		
-		//List<Contact> beans =  bc.findAll(new SpatialQueryArgument(extent, 4326));
-		List<Contact> beans =  bc.findAll(new SpatialQueryArgument(extent, 4326));
+		List<Contact> beans =  bc.findAll(new SpatialQueryArgument(900913));
 		 //List<Contact> beans =  bc.finAllByExtent(new EnvelopeWrapper("-73.125, -25.3125,133.59375, 40.078125",4326).getEnvelope()); //this.getResultList();
 		 WKTFeaturesCollection<Geometry> wktFeatures = new WKTFeaturesCollection<Geometry>();
 		 

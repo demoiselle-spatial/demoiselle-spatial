@@ -14,11 +14,14 @@ import javax.xml.bind.annotation.XmlTransient;
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.ol4jsf.validator.GeometryType;
 
 import br.gov.frameworkdemoiselle.spatial.component.feature.annotation.FeatureName;
 import br.gov.frameworkdemoiselle.spatial.query.SRID;
 
 import com.vividsolutions.jts.geom.Geometry;
+import com.vividsolutions.jts.geom.Point;
+import com.vividsolutions.jts.geom.Polygon;
 
 @Entity
 @XmlRootElement(name = "contact")
@@ -44,13 +47,12 @@ public class Contact implements Serializable {
     @Email
 	private String email;
 	
-	@Embedded
-	private Address address;
+	@Column
+	private String address;
 	
 	@NotNull
 	@Type(type = "org.hibernatespatial.GeometryUserType")
 	@SRID("4326")
-	@XmlTransient
 	private Geometry point;
 	
 	public Contact() {
@@ -109,11 +111,11 @@ public class Contact implements Serializable {
 		this.email = email;
 	}
 
-	public Address getAddress() {
+	public String getAddress() {
 		return address;
 	}
 
-	public void setAddress(Address address) {
+	public void setAddress(String address) {
 		this.address = address;
 	}
 

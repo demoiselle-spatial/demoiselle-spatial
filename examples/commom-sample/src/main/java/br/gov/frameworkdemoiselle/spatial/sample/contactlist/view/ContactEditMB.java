@@ -3,11 +3,15 @@ package br.gov.frameworkdemoiselle.spatial.sample.contactlist.view;
 import javax.inject.Inject;
 
 import br.gov.frameworkdemoiselle.annotation.PreviousView;
+import br.gov.frameworkdemoiselle.spatial.geocode.ReverseGeocoding;
+import br.gov.frameworkdemoiselle.spatial.geocode.model.GeocodingResponse;
 import br.gov.frameworkdemoiselle.spatial.sample.contactlist.business.ContactBC;
 import br.gov.frameworkdemoiselle.spatial.sample.contactlist.domain.Contact;
 import br.gov.frameworkdemoiselle.stereotype.ViewController;
 import br.gov.frameworkdemoiselle.template.AbstractEditPageBean;
 import br.gov.frameworkdemoiselle.transaction.Transactional;
+
+import com.vividsolutions.jts.geom.Point;
 
 
 @ViewController
@@ -17,8 +21,26 @@ public class ContactEditMB extends AbstractEditPageBean<Contact, Long> {
 	private static final long serialVersionUID = 1L;
 	
 	@Inject
+	private ReverseGeocoding reverseGeocoding;
+	
+	@Inject
 	private ContactBC bc;
 
+	public String geocoding()
+	{
+		if(this.getBean().getPoint() != null)
+		{
+			Point point = (Point)this.getBean().getPoint();
+			 GeocodingResponse response = reverseGeocoding.setLocation(point).search();			 
+			 if(response!= null && response.getResults()!= null && !response.getResults().isEmpty())
+				 return response.getResults().get(0).getAddress();
+
+		}
+		
+		return "Nenhum endereco encontrado";
+	}
+	
+	
 	@Override
 	@Transactional
 	public String delete() {
@@ -29,6 +51,9 @@ public class ContactEditMB extends AbstractEditPageBean<Contact, Long> {
 	@Override
 	@Transactional
 	public String insert() {
+		
+		getBean().setAddress(this.geocoding());
+		
 		this.bc.insert(getBean());
 		return getPreviousView();
 	}
@@ -36,6 +61,9 @@ public class ContactEditMB extends AbstractEditPageBean<Contact, Long> {
 	@Override
 	@Transactional
 	public String update() {
+		
+		getBean().setAddress(this.geocoding());
+		
 		this.bc.update(getBean());
 		return getPreviousView();
 	}
@@ -46,4 +74,6 @@ public class ContactEditMB extends AbstractEditPageBean<Contact, Long> {
 	}
 
 
+	
+	
 }

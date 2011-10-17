@@ -69,6 +69,9 @@ public class BeanSimpleFeatureConverter {
 						sftb.setCRS(DefaultGeographicCRS.WGS84);
 						sftb.setDefaultGeometry(property);
 					}
+						
+						//TODO
+					   if(map.get(property)!= null)
 						sftb.add(property, map.get(property).getClass());
 			}
 
@@ -147,7 +150,7 @@ public class BeanSimpleFeatureConverter {
 				continue;
 			
 			
-			{
+			
 				if(BeanHelper.hasPackageClass("com.vividsolutions.jts.geom.*", clazz))
 				{
 					
@@ -191,7 +194,7 @@ public class BeanSimpleFeatureConverter {
 				}
 
 				
-			}				
+							
 		}
 		}
 		catch (Exception e) {

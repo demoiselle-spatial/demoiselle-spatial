@@ -23,32 +23,42 @@
 			</p:toolbar>
 
 			<br />
-			<p:messages/>
 			<p:fieldset legend="#{messages['contact.label']}" toggleable="true" toggleSpeed="500">
-				<h:panelGrid id="fields" columns="2">
+				<h:panelGrid id="fields" columns="3">
 					<h:outputLabel value="#{messages['contact.label.id']}: " for="id" styleClass="text-input" />
 					<h:outputText id="id" value="#{contactEditMB.bean.id}" />
+					<h:message for="id"/>
 					<h:outputLabel value="#{messages['contact.label.name']}: " for="name" styleClass="text-input" />
 					<h:inputText id="name" value="#{contactEditMB.bean.name}"
 						title="#{messages['contact.alt.name']}" />
+					<h:message for="name"/>	
 					<h:outputLabel value="#{messages['contact.label.telefone']}: " for="telephone" styleClass="text-input" />
 					<h:inputText id="telephone" value="#{contactEditMB.bean.telephone}" title="#{messages['contact.alt.telefone']}" />
-					
+					<h:message for="telephone"/>
 					<h:outputLabel value="#{messages['contact.label.email']}: " for="email" styleClass="text-input" />
 					<h:inputText id="email" value="#{contactEditMB.bean.email}" title="#{messages['contact.alt.email']}" />
+					<h:message for="email"/>
 				</h:panelGrid>
+				</p:fieldset>
 				
-				<h:panelGrid id="panelMap" >
-				<h:outputLabel value="#{messages['contact.label.mapa']}: " for="map" styleClass="text-input" />
-				<div id="toolbar">
-					<div id="toolbar_group"></div>
-				</div>
-					<m:map id="map" width="512px" height="256px"
+				<p:fieldset legend="#{messages['contact.maplabel']}" toggleable="true" toggleSpeed="500">
+				<h:panelGrid id="panelMap" columns="4">
+				<h:outputLabel value="#{messages['contact.label.mapa']}: " for="map" styleClass="text-input" />	
+				<h:message for="feature"/>			
+				</h:panelGrid>
+
+				
+			<div id="box_mapa">
+			<div id="toolbar" >
+			<div id="toolbar_group"></div>
+			</div>
+			<m:map id="map" width="1000" height="400" jsVariable="map"
 				options="{
 					
 					controls: [],
-					numZoomLevels: 10,
-					units: 'm'
+					numZoomLevels: 20,
+					units: 'dd',
+					maxResolution: 'auto'
 					
 						}">
 	             <m:wmsLayer name="OpenLayers WMS"
@@ -65,10 +75,8 @@
 	                <m:mousePositionControl />
 	                <m:overviewMapControl />
 	                <m:keyboardDefaultsControl />
-	                <m:permalinkControl />	
-	                <f:validateBean>                
-					<m:inputVectorLayer id="feature" value="#{contactEditMB.bean.point}" jsVariable="point" dropFeaturesBeforeDraw="true"/>
-					</f:validateBean>	                
+	                <m:permalinkControl />	   
+					<m:inputVectorLayer id="feature" value="#{contactEditMB.bean.point}" jsVariable="point" dropFeaturesBeforeDraw="true"/>            
 					<m:panelControl options="{div:document.getElementById('toolbar_group')}" jsVariable="toolbar">
 						<m:drawFeatureControl layer="point" handler="OpenLayers.Handler.Point" jsVariable="iControl"/>
 						<m:zoomToMaxExtentControl options="{title:'Reset Zoom Map'}"/>
@@ -78,9 +86,9 @@
 					<m:script>toolbar.addControls(new OpenLayers.Control.ZoomIn({title:'Zoom in'}));</m:script>   
 					<m:script>toolbar.addControls(new OpenLayers.Control.ZoomOut({title:'Zoom out'}));</m:script>						
 	            	<m:script>iControl.activate();</m:script>
-	            	
          		</m:map>
-				</h:panelGrid>
+         		</div>
+				
 			</p:fieldset>
 		</h:form>
 	</ui:define>

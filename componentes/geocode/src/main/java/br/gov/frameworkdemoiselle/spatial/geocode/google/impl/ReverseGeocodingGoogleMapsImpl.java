@@ -2,6 +2,8 @@ package br.gov.frameworkdemoiselle.spatial.geocode.google.impl;
 
 import java.math.BigDecimal;
 
+import javax.enterprise.inject.Default;
+
 import br.gov.frameworkdemoiselle.spatial.geocode.ReverseGeocoding;
 import br.gov.frameworkdemoiselle.spatial.geocode.model.GeocodingResponse;
 import br.gov.frameworkdemoiselle.spatial.geocode.model.GeocodingServiceReturnStatus;
@@ -12,6 +14,7 @@ import com.google.code.geocoder.GeocoderRequestBuilder;
 import com.google.code.geocoder.model.LatLng;
 import com.vividsolutions.jts.geom.Point;
 
+@Default
 public class ReverseGeocodingGoogleMapsImpl implements ReverseGeocoding{
 
 	
