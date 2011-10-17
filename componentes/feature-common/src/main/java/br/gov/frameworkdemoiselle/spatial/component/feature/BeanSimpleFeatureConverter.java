@@ -157,7 +157,7 @@ public class BeanSimpleFeatureConverter {
 					
 					if(BeanUtil.getDeclaredProperty(bean, property) == null)
 						throw new FeatureException("Feature Geometry is null");
-					
+					propertyValue[0] = BeanUtil.getDeclaredProperty(bean, property).getClass();
 					//TODO Modify to obtain CRS from Geometry property
 					retorno.put("geometry", propertyValue);
 				}

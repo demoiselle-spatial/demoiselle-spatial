@@ -4,7 +4,7 @@
 
 	<!--
 	-->
-	<persistence-unit name="bookmark-ds" transaction-type="RESOURCE_LOCAL">
+	<persistence-unit name="contact-ds" transaction-type="RESOURCE_LOCAL">
 		<non-jta-data-source>java:/DefaultDS</non-jta-data-source>
 		
 		

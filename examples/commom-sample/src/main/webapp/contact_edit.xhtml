@@ -84,7 +84,8 @@
 					<m:script>toolbar.addControls(new OpenLayers.Control.MouseDefaults({title:'Pan'}));</m:script>
 					<m:script>toolbar.addControls(new OpenLayers.Control.ZoomBox({alwaysZoom:true, title:'Zoom box'}));</m:script>
 					<m:script>toolbar.addControls(new OpenLayers.Control.ZoomIn({title:'Zoom in'}));</m:script>   
-					<m:script>toolbar.addControls(new OpenLayers.Control.ZoomOut({title:'Zoom out'}));</m:script>						
+					<m:script>toolbar.addControls(new OpenLayers.Control.ZoomOut({title:'Zoom out'}));</m:script>
+					<m:script>map.setCenter(new OpenLayers.LonLat(50, 0), 0);</m:script>						
 	            	<m:script>iControl.activate();</m:script>
          		</m:map>
          		</div>

@@ -139,11 +139,14 @@
 		</repository>
 		
 		<!-- Repositorio de GEO -->
-				<repository>
+		<repository>
 			<id>demoiselle.spatial.git.snapshot</id>
 			<url>https://raw.github.com/rafaelsoto/demoiselle-spatial/master/mvn-repo/snapshots</url>
+			<snapshots>
+			<enabled>true</enabled>
+			</snapshots>
 		</repository>
-				<repository>
+		<repository>
 			<id>OSGEO GeoTools repo</id>
 			<url>http://download.osgeo.org/webdav/geotools</url>
 		</repository>

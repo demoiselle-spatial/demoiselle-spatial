@@ -4,7 +4,7 @@
 	template="/template/main.xhtml">
 
 	<ui:define name="header">
-	<script src='http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAjpkAC9ePGem0lIq5XcMiuhR_wWLPFku8Ix9i2SXYRVK3e45q1BQUd_beF8dtzKET_EteAjPdGDwqpQ'></script>
+		<script type="text/javascript" src="javax.faces.resource/js/map.js.jsf" />
 	</ui:define>
 
 	<ui:define name="body">
@@ -73,45 +73,6 @@
 			<div id="toolbar" >
 			<div id="toolbar_group"></div>
 			</div>
-			<script type="text/javascript">
-			var map2,selectControl2,layer_vector2,selectedFeature;
-
-			function onPopupClose(evt) {
-			    selectControl2.unselect(selectedFeature);
-			}
-			
-			function onFeatureSelect(feature) {
-				
-				selectedFeature = feature;
-			    popup = new OpenLayers.Popup.FramedCloud("popup", 
-			                             feature.geometry.getBounds().getCenterLonLat(),
-			                             null,
-			                             '<div>' + feature.data.name + '<br/>' + feature.data.address + '</div>',
-			                             null, true, onPopupClose);
-			    feature.popup = popup;
-			    map2.addPopup(popup);
-
-			}
-
-			function onFeatureUnselect(feature) {
-			    map2.removePopup(feature.popup);
-			    feature.popup.destroy();
-			    feature.popup = null;
-			}
-
-			function createEvents(layer_vector,map){
-				map2 = map;
-				layer_vector2 = layer_vector;
-				selectControl = new OpenLayers.Control.SelectFeature(layer_vector, {onSelect: onFeatureSelect, onUnselect: onFeatureUnselect});
-				map.addControl(selectControl);
-	            selectControl.activate();
-
-	            selectControl2 = selectControl;
-			}
-			
-			
-
-			</script>
 			<m:map id="map" width="1000" height="400" jsVariable="map" 
 				options="{
 					controls: [],
@@ -125,10 +86,6 @@
         			displayProjection: new OpenLayers.Projection('EPSG:4326')
 					}">	
 					<m:osmLayer/>
-					<m:googleLayer name="Google Physical" options="{type: G_PHYSICAL_MAP}"/>
-                    <m:googleLayer name="Google Streets" options="{numZoomLevels: 20}"/>
-                    <m:googleLayer name="Google Hybrid" options="{type: G_HYBRID_MAP, numZoomLevels: 20}"/>
-                    <m:googleLayer name="Google Satellite" options="{type: G_SATELLITE_MAP, numZoomLevels: 20}"/>
 	             	<m:layerSwitcherControl />
 	              	<m:navigationControl />
 	                <m:panZoomBarControl />
@@ -159,13 +116,6 @@
 					<m:script>map.zoomToExtent(features.getDataExtent());</m:script>
          		</m:map>
          		</div>
-         		<script type="text/javascript">
-         		
-         		//for (var i in map_ol.layers[2].features){ alert(map_ol.layers[2].features[i]);}
-         			//alert(map_ol.layers);	
-         		</script>
-         		
-			
 		</h:form>
 	</ui:define>
 </ui:composition>
