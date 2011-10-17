@@ -78,10 +78,10 @@ public class GeoJSONBuilderImpl implements GeoJSONBuilder {
 		Map<String, Object> retorno = new HashMap<String, Object>();
 		for (Property property : properties) {
 			
-			if(property.getName() == null || property.getValue() == null)
+			if(property.getName() == null)
 				continue;
 			try {
-				if(BeanHelper.hasPackageClass("com.vividsolutions.jts.geom.*", property.getValue().getClass()))
+				if(property.getValue() != null && BeanHelper.hasPackageClass("com.vividsolutions.jts.geom.*", property.getValue().getClass()))
 					continue;
 			} catch (Exception e) {
 				throw new GeoJSONBuildException("Error on parse create geojson properties",e);

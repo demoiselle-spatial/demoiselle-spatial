@@ -2,7 +2,6 @@ package br.gov.frameworkdemoiselle.spatial.component.feature;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -57,7 +56,7 @@ public class BeanSimpleFeatureConverter {
 		if(!hasJTSGeometry(bean))
 			throw new FeatureException("Bean does not contain property of type Geometry");
 		
-			Map<String, Object> map = parseGeoBean(bean);
+			Map<String, Object[]> map = parseGeoBean(bean);
 
 			sftb.setName(bean.getClass().getSimpleName());
 			sftb.add("@featureName", String.class);
@@ -70,16 +69,15 @@ public class BeanSimpleFeatureConverter {
 						sftb.setDefaultGeometry(property);
 					}
 						
-						//TODO
-					   if(map.get(property)!= null)
-						sftb.add(property, map.get(property).getClass());
+
+						sftb.add(property, (Class<?>)map.get(property)[0]);
 			}
 
 			type = sftb.buildFeatureType();
 			sfb = new SimpleFeatureBuilder(type);
 			
 			for (String property : map.keySet()) 
-				sfb.set(property, map.get(property));
+				sfb.set(property, map.get(property)[1]);
 					
 			featurePropertyName = BeanHelper.getFieldNameByAnnontation(bean.getClass(), FeatureName.class);
 			
@@ -131,9 +129,10 @@ public class BeanSimpleFeatureConverter {
 	
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	private static Map<String, Object> parseGeoBean(Object bean)
+	private static Map<String, Object[]> parseGeoBean(Object bean)
 	{
-		Map<String, Object> retorno = new HashMap<String, Object>();
+		Object[] propertyValue = null;
+		Map<String, Object[]> retorno = new HashMap<String, Object[]>();
 		Class clazz = null;
 		
 		String featureAttributeName = null;
@@ -149,7 +148,9 @@ public class BeanSimpleFeatureConverter {
 			if(clazz == null)
 				continue;
 			
-			
+			propertyValue = new Object[2];
+			propertyValue[0] = clazz;
+			propertyValue[1] = BeanUtil.getDeclaredProperty(bean, property);
 			
 				if(BeanHelper.hasPackageClass("com.vividsolutions.jts.geom.*", clazz))
 				{
@@ -158,7 +159,7 @@ public class BeanSimpleFeatureConverter {
 						throw new FeatureException("Feature Geometry is null");
 					
 					//TODO Modify to obtain CRS from Geometry property
-					retorno.put("geometry", BeanUtil.getDeclaredProperty(bean, property));
+					retorno.put("geometry", propertyValue);
 				}
 				else{
 					
@@ -180,15 +181,15 @@ public class BeanSimpleFeatureConverter {
 							continue;
 						
 						if(featureAttributeName != null)
-							retorno.put(featureAttributeName, BeanUtil.getDeclaredProperty(bean, property));
+							retorno.put(featureAttributeName, propertyValue);
 						else
-							retorno.put(property, BeanUtil.getDeclaredProperty(bean, property));
+							retorno.put(property, propertyValue);
 					}
 					else{
 						if(featureAttributeName != null)
-							retorno.put(featureAttributeName, BeanUtil.getDeclaredProperty(bean, property));
+							retorno.put(featureAttributeName, propertyValue);
 						else
-							retorno.put(property, BeanUtil.getDeclaredProperty(bean, property));
+							retorno.put(property, propertyValue);
 					}
 					
 				}
