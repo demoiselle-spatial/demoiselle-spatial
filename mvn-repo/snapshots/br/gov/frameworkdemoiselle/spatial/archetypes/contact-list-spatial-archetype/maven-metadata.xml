@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>br.gov.frameworkdemoiselle.spatial.archetypes</groupId>
+  <artifactId>contact-list-spatial-archetype</artifactId>
+  <versioning>
+    <versions>
+      <version>1.0.0-SNAPSHOT</version>
+    </versions>
+    <lastUpdated>20111018000429</lastUpdated>
+  </versioning>
+</metadata>
