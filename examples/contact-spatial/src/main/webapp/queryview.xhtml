@@ -1,0 +1,45 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:m="http://www.ol4jsf.org"
+	template="/template/main.xhtml">
+
+	<ui:define name="body">
+<h:form prependId="false">
+	<h:panelGroup id="mapPanel" layout="block">
+			<m:map width="1024px" height="480px"
+		options="{controls: []				
+					}" renderOnWindowLoad="false">
+	             <m:wmsLayer name="OpenLayers WMS"
+	                         url="http://labs.metacarta.com/wms/vmap0"
+	                         params="{layers:'basic'}" />
+			<m:vectorLayer name="Query Result" value="#{queryViewManager.wkts}" />
+			<m:featureInfoPopup
+				url="#{facesContext.externalContext.requestContextPath}/OL4JSFProxy/wms">
+			</m:featureInfoPopup>
+			<m:navigationControl />
+			<m:panZoomBarControl />
+			<m:layerSwitcherControl options="{ascending:false}" />
+			<m:scaleLineControl />
+			<m:mousePositionControl />
+			<m:overviewMapControl />
+			<m:permalinkControl />
+		</m:map>
+	</h:panelGroup>
+	<h:messages id="msg" globalOnly="true">
+	</h:messages>
+	<fieldset>
+		<legend>Consultas espaciais</legend>
+		<h:selectOneRadio id="qryLanguage" value="#{queryViewManager.qryLanguage}">
+			<f:selectItem itemLabel="Postgis" itemValue="POSTGIS"></f:selectItem>
+			<f:selectItem itemLabel="JPQL" itemValue="JPQL"></f:selectItem>
+		</h:selectOneRadio>
+		<h:inputTextarea id="inputQuery" value="#{queryViewManager.query}" cols="60" rows="10">
+		</h:inputTextarea>
+		<p><h:commandButton value="Executar Consulta"
+		action="#{queryViewManager.executeQuery}">
+		<f:ajax execute="@this inputQuery qryLanguage" render="mapPanel msg" />
+	</h:commandButton></p>
+	</fieldset>
+</h:form>
+</ui:define>
+</ui:composition>

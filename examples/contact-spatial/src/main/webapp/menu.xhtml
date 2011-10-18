@@ -8,6 +8,9 @@
 				<p:menuitem value="#{messages['menu.menuitem.new']}" url="/contact_edit.jsf" />
 				<p:menuitem value="#{messages['menu.menuitem.list']}" url="/contact_list.jsf" />
 			</p:submenu>
+			<p:submenu label="Plus">
+				<p:menuitem value="Query View" url="/queryview.jsf" />
+			</p:submenu>
 
 			<p:menuitem value="#{messages['menu.menuitem.quit']}" url="http://www.frameworkdemoiselle.gov.br/"
 				action="#{securityContext.logout}" />
