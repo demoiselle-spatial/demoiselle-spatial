@@ -149,11 +149,11 @@
 	<distributionManagement>
 		<repository>
         <id>repo</id>
-        <url>https://github.com/rafaelsoto/demoiselle-spatial/raw/master/mvn-repo/releases</url>
+        <url>https://github.com/demoiselle-spatial/demoiselle-spatial/raw/master/mvn-repo/releases</url>
     </repository>
     <snapshotRepository>
         <id>snapshot-repo</id>
-        <url>https://github.com/rafaelsoto/demoiselle-spatial/raw/master/mvn-repo/snapshots</url>
+        <url>https://github.com/demoiselle-spatial/demoiselle-spatial/raw/master/mvn-repo/snapshots</url>
     </snapshotRepository>
 	</distributionManagement>
 	
@@ -164,7 +164,7 @@
 		</repository>
 		<repository>
 			<id>demoiselle.spatial.git.snapshot</id>
-			<url>https://raw.github.com/rafaelsoto/demoiselle-spatial/master/mvn-repo/snapshots</url>
+			<url>https://raw.github.com/demoiselle-spatial/demoiselle-spatial/master/mvn-repo/snapshots</url>
 		</repository>		
 		<repository>
 			<id>OSGEO GeoTools repo</id>
