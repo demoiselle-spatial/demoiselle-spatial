@@ -37,11 +37,11 @@
 	<distributionManagement>
 		<repository>
         <id>repo</id>
-        <url>https://github.com/rafaelsoto/demoiselle-spatial/raw/master/mvn-repo/releases</url>
+        <url>https://github.com/demoiselle-spatial/demoiselle-spatial/tree/master/mvn-repo/releases</url>
     </repository>
     <snapshotRepository>
         <id>snapshot-repo</id>
-        <url>https://github.com/rafaelsoto/demoiselle-spatial/raw/master/mvn-repo/snapshots</url>
+        <url>https://github.com/demoiselle-spatial/demoiselle-spatial/tree/master/mvn-repo/snapshots</url>
     </snapshotRepository>
 	</distributionManagement>
 </project>

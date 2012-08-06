@@ -126,7 +126,7 @@
 		<!-- Repositorio de GEO -->
 		<repository>
 			<id>demoiselle.spatial.git.snapshot</id>
-			<url>https://raw.github.com/rafaelsoto/demoiselle-spatial/master/mvn-repo/snapshots</url>
+			<url>https://github.com/demoiselle-spatial/demoiselle-spatial/tree/master/mvn-repo/snapshots</url>
 			<snapshots>
 			</snapshots>
 		</repository>
