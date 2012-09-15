@@ -1,0 +1,90 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:m="http://www.ol4jsf.org"
+	template="/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form prependId="false">
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton value="#{messages['button.save']}" action="#{bairroEditMB.insert}"
+						rendered="#{!bairroEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.save']}" action="#{bairroEditMB.update}"
+						rendered="#{bairroEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.delete']}" onclick="confirmation.show()"
+						rendered="#{bairroEditMB.updateMode}" type="button" immediate="true" ajax="false" />
+					<p:confirmDialog message="#{messages['label.confirm.delete']}" showEffect="bounce" hideEffect="explode"
+						header="#{messages['label.dialog.delete']}" severity="alert" widgetVar="confirmation">
+						<h:commandButton value="#{messages['button.dialog.yes']}" action="#{bairroEditMB.delete}" immediate="true"
+							ajax="false" />
+						<h:commandButton value="#{messages['button.dialog.no']}" onclick="confirmation.hide()" type="button" />
+					</p:confirmDialog>
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<br />
+			<p:fieldset legend="#{messages['bairro.label']}" toggleable="true" toggleSpeed="500">
+				<h:panelGrid id="fields" columns="3">
+					<h:outputLabel value="#{messages['bairro.label.id']}: " for="id" styleClass="text-input" />
+					<h:outputText id="id" value="#{bairroEditMB.bean.id}" />
+					<h:message for="id"/>
+					<h:outputLabel value="#{messages['bairro.label.name']}: " for="name" styleClass="text-input" />
+					<h:inputText id="name" value="#{bairroEditMB.bean.name}"
+						title="#{messages['bairro.alt.name']}" />
+					<h:message for="name"/>	
+				</h:panelGrid>
+				</p:fieldset>
+				
+				<p:fieldset legend="#{messages['bairro.maplabel']}" toggleable="true" toggleSpeed="500">
+				<h:panelGrid id="panelMap" columns="4">
+				<h:outputLabel value="#{messages['bairro.label.mapa']}: " for="map" styleClass="text-input" />	
+				<h:message for="feature"/>			
+				</h:panelGrid>
+
+				
+			<div id="box_mapa">
+			<div id="toolbar" >
+			<div id="toolbar_group"></div>
+			</div>
+			<m:map id="map" width="1000" height="400" jsVariable="map"
+				options="{
+					
+					controls: [],
+					numZoomLevels: 20,
+					units: 'dd',
+					maxResolution: 'auto'
+					
+						}">
+	             <m:wmsLayer name="OpenLayers WMS"
+	                         url="http://labs.metacarta.com/wms/vmap0"
+	                         params="{layers:'basic'}" />
+	             <m:wmsLayer name="NASA Global Mosaic"
+	                         url="http://t1.hypercube.telascience.org/cgi-bin/landsat7"
+	                         params="{layers:'landsat7'}"/>
+	             	<m:layerSwitcherControl />
+	              	<m:navigationControl />
+	                <m:panZoomBarControl />
+	                <m:layerSwitcherControl options="{ascending:false}"/>
+	                <m:scaleLineControl />
+	                <m:mousePositionControl />
+	                <m:overviewMapControl />
+	                <m:keyboardDefaultsControl />
+	                <m:permalinkControl />	   
+					<m:inputVectorLayer id="feature" value="#{bairroEditMB.bean.geometry}" jsVariable="geometry" dropFeaturesBeforeDraw="true"/>            
+					<m:panelControl options="{div:document.getElementById('toolbar_group')}" jsVariable="toolbar">
+						<m:drawFeatureControl layer="geometry" handler="OpenLayers.Handler.Geometry" jsVariable="iControl"/>
+						<m:zoomToMaxExtentControl options="{title:'Reset Zoom Map'}"/>
+					</m:panelControl>
+					<m:script>toolbar.addControls(new OpenLayers.Control.MouseDefaults({title:'Pan'}));</m:script>
+					<m:script>toolbar.addControls(new OpenLayers.Control.ZoomBox({alwaysZoom:true, title:'Zoom box'}));</m:script>
+					<m:script>toolbar.addControls(new OpenLayers.Control.ZoomIn({title:'Zoom in'}));</m:script>   
+					<m:script>toolbar.addControls(new OpenLayers.Control.ZoomOut({title:'Zoom out'}));</m:script>
+					<m:script>map.setCenter(new OpenLayers.LonLat(50, 0), 0);</m:script>						
+	            	<m:script>iControl.activate();</m:script>
+         		</m:map>
+         		</div>
+				
+			</p:fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>

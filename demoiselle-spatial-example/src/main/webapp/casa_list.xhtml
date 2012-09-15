@@ -1,0 +1,121 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:m="http://www.ol4jsf.org"
+	template="/template/main.xhtml">
+
+	<ui:define name="header">
+		<script type="text/javascript" src="javax.faces.resource/js/map.js.jsf" />
+	</ui:define>
+
+	<ui:define name="body">
+		<h:form>
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton title="#{messages['button.new']}" image="ui-icon-document" action="#{casaListMB.getNextView}"
+						actionListener="#{casaListMB.clear}" ajax="false" />
+
+					<p:commandButton title="#{messages['button.delete']}" image="ui-icon-trash" onclick="confirmation.show()"
+						type="button" immediate="true" ajax="false" />
+
+					<p:confirmDialog message="#{messages['label.confirm.delete']}" showEffect="bounce" hideEffect="explode"
+						header="#{messages['label.dialog.alert']}!" severity="alert" widgetVar="confirmation">
+
+						<h:commandButton value="#{messages['button.dialog.yes']}" action="#{casaListMB.deleteSelection}"
+							actionListener="#{casaListMB.clear}" />
+						<h:commandButton value="#{messages['button.dialog.no']}" onclick="confirmation.hide()" type="button" />
+					</p:confirmDialog>
+				</p:toolbarGroup>
+				<p:toolbarGroup align="right">
+				<p:commandButton title="#{messages['button.kml']}" image="icon-kml" ajax="false" >
+					<p:fileDownload value="#{casaListMB.kml}" />
+				</p:commandButton>
+				<p:commandButton title="#{messages['button.shapefile']}" image="icon-shapefile" ajax="false" >
+					<p:fileDownload value="#{casaListMB.shapefile}" />
+				</p:commandButton>
+				</p:toolbarGroup>
+			</p:toolbar>
+	
+			<p:dataTable id="list" var="bean" value="#{casaListMB.resultList}">
+				<f:facet name="header">#{messages['casa.list.table.title']}</f:facet>
+				<p:column style="width:5%;">
+					<h:selectBooleanCheckbox value="#{casaListMB.selection[bean.id]}"></h:selectBooleanCheckbox>
+				</p:column>
+				<p:column style="width:5%;" sortBy="#{bean.id}">
+					<f:facet name="header">#{messages['casa.label.id']}</f:facet>
+					<h:outputText value="#{bean.id}" />
+				</p:column>
+				<p:column sortBy="#{bean.number}">
+					<f:facet name="header">#{messages['casa.label.number']}</f:facet>
+					<h:commandLink action="#{casaListMB.getNextView}" actionListener="#{casaListMB.clear}">
+						<h:outputText value="#{bean.number}" />
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
+				</p:column>
+				<p:column>
+					<f:facet name="header">#{messages['casa.label.lote']}</f:facet>
+					<h:commandLink action="#{casaListMB.getNextView}" actionListener="#{casaListMB.clear}">
+						<h:outputText value="#{bean.lote.address}" />
+						<f:param name="id" value="#{bean.id}"/>
+					</h:commandLink>
+				</p:column>
+				<p:column>
+					<f:facet name="header">#{messages['casa.label.owner']}</f:facet>
+					<h:commandLink action="#{casaListMB.getNextView}" actionListener="#{casaListMB.clear}">
+						<h:outputText value="#{bean.owner.name}" />
+						<f:param name="id" value="#{bean.id}"/>
+					</h:commandLink>
+				</p:column>
+					<p:column style="width:5%;">
+					<p:commandButton value="Map" onclick="map.setCenter(new OpenLayers.LonLat(#{bean.geometry.centroid.x}, #{bean.geometry.centroid.y}), map.getZoom());" type="button"/>
+				</p:column>
+			</p:dataTable>
+			<div id="box_mapa">
+			<div id="toolbar" >
+			<div id="toolbar_group"></div>
+			</div>
+			<m:map id="map" width="1000" height="400" jsVariable="map" 
+				options="{
+					controls: [],
+					numZoomLevels: 18,
+					units: 'm',
+					maxResolution: 156543.0339,
+                    maxExtent: new OpenLayers.Bounds(
+                       1549471.9221, 6403610.94, 1550001.32545, 6404015.8
+                       ),
+					projection: new OpenLayers.Projection('EPSG:900913'),
+        			displayProjection: new OpenLayers.Projection('EPSG:4326')
+					}">	
+					<m:osmLayer/>
+	             	<m:layerSwitcherControl />
+	              	<m:navigationControl />
+	                <m:panZoomBarControl />
+	                <m:layerSwitcherControl options="{ascending:false}"/>
+	                <m:scaleLineControl />
+	                <m:mousePositionControl />
+	                <m:overviewMapControl />
+	                <m:keyboardDefaultsControl />
+	                <m:permalinkControl />	                
+					<m:vectorLayer name="casas" jsVariable="json_vector"
+                                   options="{
+                                   strategies: [new OpenLayers.Strategy.Fixed()],
+                                   protocol: new OpenLayers.Protocol.HTTP({
+                                   url: 'georest/casa/list?SRID=900913',
+                                   format: new OpenLayers.Format.GeoJSON()
+                                   })
+                                   }"/>
+					<m:panelControl options="{div:document.getElementById('toolbar_group')}" jsVariable="toolbar">
+					<m:zoomToMaxExtentControl options="{title:'Reset Zoom Map'}"/>
+					</m:panelControl>
+					<m:script>toolbar.addControls(new OpenLayers.Control.MouseDefaults({title:'Pan'}));</m:script>
+					<m:script>toolbar.addControls(new OpenLayers.Control.ZoomBox({alwaysZoom:true, title:'Zoom box'}));</m:script>
+					<m:script>toolbar.addControls(new OpenLayers.Control.ZoomIn({title:'Zoom in'}));</m:script>   
+					<m:script>toolbar.addControls(new OpenLayers.Control.ZoomOut({title:'Zoom out'}));</m:script>
+					<m:script>createEvents(json_vector,map)</m:script>
+					<m:script>map.zoomToExtent(new OpenLayers.Bounds(
+                      -17979006.856029,-6628394.2026953,21156751.620533,9025909.1879297
+                       ));</m:script>
+         		</m:map>
+         		</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
